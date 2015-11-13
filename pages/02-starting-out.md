@@ -22,7 +22,7 @@ first thing we're going to do is run ghc's interactive mode and call
 some function to get a very basic feel for haskell. Open your terminal
 and type in ghci. You will be greeted with something like this.
 
-{% highlight elm %}
+{% highlight bash %}
 GHCi, version 6.8.2: http://www.haskell.org/ghc/  :? for help
 Loading package base ... linking ... done.
 Prelude>
@@ -35,7 +35,7 @@ going to use ghci\>. If you want to have the same prompt, just type in
 
 Here's some simple arithmetic.
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> 2 + 15
 17
 ghci> 49 * 100
@@ -51,7 +51,7 @@ This is pretty self-explanatory. We can also use several operators on
 one line and all the usual precedence rules are obeyed. We can use
 parentheses to make the precedence explicit or to change it.
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> (50 * 100) - 4999
 1
 ghci> 50 * 100 - 4999
@@ -70,7 +70,7 @@ Boolean algebra is also pretty straightforward. As you probably know, &&
 means a boolean *and*, || means a boolean *or*. not negates a True or a
 False.
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> True && False
 False
 ghci> True && True
@@ -85,7 +85,7 @@ False
 
 Testing for equality is done like so.
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> 5 == 5
 True
 ghci> 1 == 0
@@ -101,7 +101,7 @@ True
 What about doing 5 + "llama" or 5 == True? Well, if we try the first
 snippet, we get a big scary error message!
 
-{% highlight elm %}
+{% highlight bash %}
 No instance for (Num [Char])
 arising from a use of `+' at <interactive>:1:0-9
 Possible fix: add an instance declaration for (Num [Char])
@@ -136,7 +136,7 @@ Haskell, functions are called by writing the function name, a space and
 then the parameters, separated by spaces. For a start, we'll try calling
 one of the most boring functions in Haskell.
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> succ 8
 9
 {% endhighlight %}
@@ -148,7 +148,7 @@ parameters is also simple. The functions min and max take two things
 that can be put in an order (like numbers!). min returns the one that's
 lesser and max returns the one that's greater. See for yourself:
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> min 9 10
 9
 ghci> min 3.4 3.2
@@ -161,7 +161,7 @@ Function application (calling a function by putting a space after it and
 then typing out the parameters) has the highest precedence of them all.
 What that means for us is that these two statements are equivalent.
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> succ 9 + max 5 4 + 1
 16
 ghci> (succ 9) + (max 5 4) + 1
@@ -211,7 +211,7 @@ it's saved and run ghci from there. Once inside GHCI, do :l baby. Now
 that our script is loaded, we can play with the function that we
 defined.
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> :l baby
 [1 of 1] Compiling Main             ( baby.hs, interpreted )
 Ok, modules loaded: Main.
@@ -235,7 +235,7 @@ Testing it out produces pretty predictable results (remember to append
 this function to the baby.hs file, save it and then do :l baby inside
 GHCI).
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> doubleUs 4 9
 26
 ghci> doubleUs 2.3 34.2
@@ -335,7 +335,7 @@ integers and then a few characters. And now, a list!
 let a = 1 inside GHCI is the equivalent of writing a = 1 in a script and
 then loading it.
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> let lostNumbers = [4,8,15,16,23,42]
 ghci> lostNumbers
 [4,8,15,16,23,42]
@@ -353,7 +353,7 @@ handy.
 A common task is putting two lists together. This is done by using the
 ++ operator.
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> [1,2,3,4] ++ [9,10,11,12]
 [1,2,3,4,9,10,11,12]
 ghci> "hello" ++ " " ++ "world"
@@ -371,7 +371,7 @@ of a list that's fifty million entries long is going to take a while.
 However, putting something at the beginning of a list using the :
 operator (also called the cons operator) is instantaneous.
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> 'A':" SMALL CAT"
 "A SMALL CAT"
 ghci> 5:[1,2,3,4,5]
@@ -394,7 +394,7 @@ list, the third one is a list that contains three empty lists.
 If you want to get an element out of a list by index, use !!. The
 indices start at 0.
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> "Steve Buscemi" !! 6
 'B'
 ghci> [9.4,33.2,96.2,11.2,23.25] !! 1
@@ -407,7 +407,7 @@ elements, you'll get an error so be careful!
 Lists can also contain lists. They can also contain lists that contain
 lists that contain lists …
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> let b = [[1,2,3,4],[5,3,3,3],[1,2,2,3,4],[1,2,3]]
 ghci> b
 [[1,2,3,4],[5,3,3,3],[1,2,2,3,4],[1,2,3]]
@@ -429,7 +429,7 @@ using \<, \<=, \> and \>= to compare lists, they are compared in
 lexicographical order. First the heads are compared. If they are equal
 then the second elements are compared, etc.
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> [3,2,1] > [2,1,0]
 True
 ghci> [3,2,1] > [2,10,100]
@@ -448,7 +448,7 @@ operate on lists.
 head takes a list and returns its head. The head of a list is basically
 its first element.
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> head [5,4,3,2,1]
 5
 {% endhighlight %}
@@ -456,21 +456,21 @@ ghci> head [5,4,3,2,1]
 tail takes a list and returns its tail. In other words, it chops off a
 list's head.
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> tail [5,4,3,2,1]
 [4,3,2,1]
 {% endhighlight %}
 
 last takes a list and returns its last element.
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> last [5,4,3,2,1]
 1
 {% endhighlight %}
 
 init takes a list and returns everything except its last element.
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> init [5,4,3,2,1]
 [5,4,3,2]
 {% endhighlight %}
@@ -481,7 +481,7 @@ If we think of a list as a monster, here's what's what.
 
 But what happens if we try to get the head of an empty list?
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> head []
 *** Exception: Prelude.head: empty list
 {% endhighlight %}
@@ -494,7 +494,7 @@ Haskell to give you some elements from an empty list.
 
 length takes a list and returns its length, obviously.
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> length [5,4,3,2,1]
 5
 {% endhighlight %}
@@ -503,7 +503,7 @@ null checks if a list is empty. If it is, it returns True, otherwise it
 returns False. Use this function instead of xs == [] (if you have a list
 called xs)
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> null [1,2,3]
 False
 ghci> null []
@@ -512,7 +512,7 @@ True
 
 reverse reverses a list.
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> reverse [5,4,3,2,1]
 [1,2,3,4,5]
 {% endhighlight %}
@@ -520,7 +520,7 @@ ghci> reverse [5,4,3,2,1]
 take takes number and a list. It extracts that many elements from the
 beginning of the list. Watch.
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> take 3 [5,4,3,2,1]
 [5,4,3]
 ghci> take 1 [3,9,3]
@@ -538,7 +538,7 @@ list.
 drop works in a similar way, only it drops the number of elements from
 the beginning of a list.
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> drop 3 [8,4,2,1,5,6]
 [1,5,6]
 ghci> drop 0 [1,2,3,4]
@@ -552,7 +552,7 @@ returns the biggest element.
 
 minimum returns the smallest.
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> minimum [8,4,2,1,5,6]
 1
 ghci> maximum [1,9,2,3,4]
@@ -563,7 +563,7 @@ sum takes a list of numbers and returns their sum.
 
 product takes a list of numbers and returns their product.
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> sum [5,2,1,6,3,2,5,7]
 31
 ghci> product [6,2,1,2]
@@ -576,7 +576,7 @@ elem takes a thing and a list of things and tells us if that thing is an
 element of the list. It's usually called as an infix function because
 it's easier to read that way.
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> 4 `elem` [3,4,5,6]
 True
 ghci> 10 `elem` [3,4,5,6]
@@ -605,7 +605,7 @@ write [1..20]. That is the equivalent of writing
 difference between writing one or the other except that writing out long
 enumeration sequences manually is stupid.
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> [1..20]
 [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 ghci> ['a'..'z']
@@ -617,7 +617,7 @@ ghci> ['K'..'Z']
 Ranges are cool because you can also specify a step. What if we want all
 even numbers between 1 and 20? Or every third number between 1 and 20?
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> [2,4..20]
 [2,4,6,8,10,12,14,16,18,20]
 ghci> [3,6..20]
@@ -639,7 +639,7 @@ Watch out when using floating point numbers in ranges! Because they are
 not completely precise (by definition), their use in ranges can yield
 some pretty funky results.
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> [0.1, 0.3 .. 1]
 [0.1,0.3,0.5,0.7,0.8999999999999999,1.0999999999999999]
 {% endhighlight %}
@@ -661,7 +661,7 @@ cycle takes a list and cycles it into an infinite list. If you just try
 to display the result, it will go on forever so you have to slice it off
 somewhere.
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> take 10 (cycle [1,2,3])
 [1,2,3,1,2,3,1,2,3,1]
 ghci> take 12 (cycle "LOL ")
@@ -671,7 +671,7 @@ ghci> take 12 (cycle "LOL ")
 repeat takes an element and produces an infinite list of just that
 element. It's like cycling a list with only one element.
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> take 10 (repeat 5)
 [5,5,5,5,5,5,5,5,5,5]
 {% endhighlight %}
@@ -703,7 +703,7 @@ x is drawn from [1..10] and for every element in [1..10] (which we have
 bound to x), we get that element, only doubled. Here's that
 comprehension in action.
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> [x*2 | x <- [1..10]]
 [2,4,6,8,10,12,14,16,18,20]
 {% endhighlight %}
@@ -713,7 +713,7 @@ As you can see, we get the desired results. Now let's add a condition
 parts and are separated from them by a comma. Let's say we want only the
 elements which, doubled, are greater than or equal to 12.
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> [x*2 | x <- [1..10], x*2 >= 12]
 [12,14,16,18,20]
 {% endhighlight %}
@@ -721,7 +721,7 @@ ghci> [x*2 | x <- [1..10], x*2 >= 12]
 Cool, it works. How about if we wanted all numbers from 50 to 100 whose
 remainder when divided with the number 7 is 3? Easy.
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> [ x | x <- [50..100], x `mod` 7 == 3]
 [52,59,66,73,80,87,94]
 {% endhighlight %}
@@ -734,7 +734,7 @@ number that's less than 10 with "BOOM!". If a number isn't odd, we throw
 it out of our list. For convenience, we'll put that comprehension inside
 a function so we can easily reuse it.
 
-{% highlight elm %}
+{% highlight bash %}
 boomBangs xs = [ if x < 10 then "BOOM!" else "BANG!" | x <- xs, odd x]
 {% endhighlight %}
 
@@ -750,7 +750,7 @@ ghci> boomBangs [7..13]
 We can include several predicates. If we wanted all numbers from 10 to
 20 that are not 13, 15 or 19, we'd do:
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> [ x | x <- [10..20], x /= 13, x /= 15, x /= 19]
 [10,11,12,14,16,17,18,20]
 {% endhighlight %}
@@ -765,7 +765,7 @@ of 16, provided we don't filter them. If we have two lists, [2,5,10] and
 [8,10,11] and we want to get the products of all the possible
 combinations between numbers in those lists, here's what we'd do.
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> [ x*y | x <- [2,5,10], y <- [8,10,11]]
 [16,20,22,40,50,55,80,100,110]
 {% endhighlight %}
@@ -773,7 +773,7 @@ ghci> [ x*y | x <- [2,5,10], y <- [8,10,11]]
 As expected, the length of the new list is 9. What if we wanted all
 possible products that are more than 50?
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> [ x*y | x <- [2,5,10], y <- [8,10,11], x*y > 50]
 [55,80,100,110]
 {% endhighlight %}
@@ -781,7 +781,7 @@ ghci> [ x*y | x <- [2,5,10], y <- [8,10,11], x*y > 50]
 How about a list comprehension that combines a list of adjectives and a
 list of nouns … for epic hilarity.
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> let nouns = ["hobo","frog","pope"]
 ghci> let adjectives = ["lazy","grouchy","scheming"]
 ghci> [adjective ++ " " ++ noun | adjective <- adjectives, noun <- nouns]
@@ -811,7 +811,7 @@ removeNonUppercase st = [ c | c <- st, c `elem` ['A'..'Z']]
 
 Testing it out:
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> removeNonUppercase "Hahaha! Ahahaha!"
 "HA"
 ghci> removeNonUppercase "IdontLIKEFROGS"
@@ -824,7 +824,7 @@ Nested list comprehensions are also possible if you're operating on
 lists that contain lists. A list contains several lists of numbers.
 Let's remove all odd numbers without flattening the list.
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> let xxs = [[1,3,5,2,3,1,2,4,5],[1,2,3,4,5,6,7,8,9],[1,2,4,2,1,6,3,1,3,2,3,6]]
 ghci> [ [ x | x <- xs, even x ] | xs <- xxs]
 [[2,2,4],[2,4,6,8],[2,4,2,6,2,6]]
@@ -865,7 +865,7 @@ Instead of surrounding the vectors with square brackets, we use
 parentheses: [(1,2),(8,11),(4,5)]. What if we tried to make a shape like
 [(1,2),(8,11,5),(4,5)]? Well, we'd get this error:
 
-{% highlight elm %}
+{% highlight bash %}
 Couldn't match expected type `(t, t1)'
 against inferred type `(t2, t3, t4)'
 In the expression: (8, 11, 5)
@@ -901,7 +901,7 @@ functions that operate on pairs:
 
 fst takes a pair and returns its first component.
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> fst (8,11)
 8
 ghci> fst ("Wow", False)
@@ -910,7 +910,7 @@ ghci> fst ("Wow", False)
 
 snd takes a pair and returns its second component. Surprise!
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> snd (8,11)
 11
 ghci> snd ("Wow", False)
@@ -927,7 +927,7 @@ elements into pairs. It's a really simple function but it has loads of
 uses. It's especially useful for when you want to combine two lists in a
 way or traverse two lists simultaneously. Here's a demonstration.
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> zip [1,2,3,4,5] [5,5,5,5,5]
 [(1,5),(2,5),(3,5),(4,5),(5,5)]
 ghci> zip [1 .. 5] ["one", "two", "three", "four", "five"]
@@ -940,7 +940,7 @@ pairs can have different types in them, zip can take two lists that
 contain different types and zip them up. What happens if the lengths of
 the lists don't match?
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> zip [5,3,2,6,2,7,2,5,4,6,6] ["im","a","turtle"]
 [(5,"im"),(3,"a"),(2,"turtle")]
 {% endhighlight %}
@@ -949,7 +949,7 @@ The longer list simply gets cut off to match the length of the shorter
 one. Because Haskell is lazy, we can zip finite lists with infinite
 lists:
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> zip [1..] ["apple", "orange", "cherry", "mango"]
 [(1,"apple"),(2,"orange"),(3,"cherry"),(4,"mango")]
 {% endhighlight %}
@@ -961,7 +961,7 @@ right triangle that has integers for all sides and all sides equal to or
 smaller than 10 has a perimeter of 24? First, let's try generating all
 triangles with sides equal to or smaller than 10:
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> let triangles = [ (a,b,c) | c <- [1..10], b <- [1..10], a <- [1..10] ]
 {% endhighlight %}
 
@@ -973,14 +973,14 @@ triangles. We'll also modify this function by taking into consideration
 that side b isn't larger than the hypothenuse and that side a isn't
 larger than side b.
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> let rightTriangles = [ (a,b,c) | c <- [1..10], b <- [1..c], a <- [1..b], a^2 + b^2 == c^2]
 {% endhighlight %}
 
 We're almost done. Now, we just modify the function by saying that we
 want the ones where the perimeter is 24.
 
-{% highlight elm %}
+{% highlight bash %}
 ghci> let rightTriangles' = [ (a,b,c) | c <- [1..10], b <- [1..c], a <- [1..b], a^2 + b^2 == c^2, a+b+c == 24]
 ghci> rightTriangles'
 [(6,8,10)]
