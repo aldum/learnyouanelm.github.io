@@ -1,7 +1,8 @@
 ---
 layout: post
-title: Blogging Like a Hacker
+title: Learn You An Elm
 ---
+
 Learn You an _Elm_ 
 =====================================
 _Based on [Learn You a Haskell for a Great Good](http://learnyouahaskell.com/chapters)._
