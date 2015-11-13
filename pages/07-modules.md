@@ -1,3 +1,8 @@
+---
+layout: post
+title: Modules
+---
+
 #NOTE#
 
 This chapter has not yet been adapted to Elm. While Elm is very similar to Haskell,
