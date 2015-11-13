@@ -14,8 +14,9 @@ _adapted for Elm by Joey Eremondi._
 Contents 
 ----
 
-* TOC
-{:toc}
+{% for post in site.en %}	
+    <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+{% endfor %}	
 
 Done
 ----
