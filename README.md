@@ -10,6 +10,7 @@ Done
 ----
 
 * Add disclaimer to all chapters that they are un-adapted for Elm
+* Intro updated for Elm
  
 TODO
 ----
