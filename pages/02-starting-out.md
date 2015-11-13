@@ -22,11 +22,11 @@ first thing we're going to do is run ghc's interactive mode and call
 some function to get a very basic feel for haskell. Open your terminal
 and type in ghci. You will be greeted with something like this.
 
-```elm
+{% highlight bash %}
 GHCi, version 6.8.2: http://www.haskell.org/ghc/  :? for help
 Loading package base ... linking ... done.
 Prelude>
-```
+{% endhighlight %}
 
 Congratulations, you're in GHCI! The prompt here is Prelude\> but
 because it can get longer when you load stuff into the session, we're
