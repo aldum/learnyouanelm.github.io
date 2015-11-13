@@ -1,3 +1,8 @@
+---
+layout: post
+title: Higher Order Functions
+---
+
 #NOTE#
 
 This chapter has not yet been adapted to Elm. While Elm is very similar to Haskell,
