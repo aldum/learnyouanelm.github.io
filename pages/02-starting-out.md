@@ -22,7 +22,7 @@ first thing we're going to do is run ghc's interactive mode and call
 some function to get a very basic feel for haskell. Open your terminal
 and type in ghci. You will be greeted with something like this.
 
-~~~~ {.haskell: .ghci name="code"}
+~~~~ {highlight elm}
 GHCi, version 6.8.2: http://www.haskell.org/ghc/  :? for help
 Loading package base ... linking ... done.
 Prelude>
