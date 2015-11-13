@@ -13,7 +13,7 @@ Welcome to *Learn You an Elm*! If you're reading this,
 chances are you want to learn Elm. Well, you've come to the right
 place, but let's talk about this tutorial a bit first.
 
-I decided to write this because *learn You A Haskell* is now
+I decided to write this because *Learn You A Haskell* is now
 a common resource for learning functional programming. But,
 Elm is developing into its own language, and has some significant
 technical and philosophical differences from Haskell.
@@ -60,7 +60,7 @@ This is a property that makes testing, debugging and refactoring code very easy.
 It also makes it easy to build more
 complex functions by gluing simple functions together.
 
-![lazy](img/lazy.png) Haskell is *eager*, unlike Haskell, which is lazy.
+Elm is *eager*, unlike Haskell, which is lazy.
 That means, in Elm, if you call a function, the arguments are fully evaluated
 before they are passed to the function.
 Most programming languages are like this, so you won't likely need
