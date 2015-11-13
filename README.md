@@ -1,6 +1,6 @@
 Learn You an _Elm_ 
 =====================================
-_Based on [Learn You a Haskell for a Great Good](http://learnyouahaskell.com/chapters).
+_Based on [Learn You a Haskell for a Great Good](http://learnyouahaskell.com/chapters)._
 
 _by Miran Lipovača._
 
