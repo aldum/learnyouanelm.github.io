@@ -14,7 +14,7 @@ _adapted for Elm by Joey Eremondi._
 Contents 
 ----
 
-* auto-gen TOC:
+* TOC
 {:toc}
 
 Done
