@@ -15,7 +15,7 @@ Contents
 ----
 
 {% for post in site.pages %}	
-    <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+* [{{ post.title }}]({{ post.url }})
 {% endfor %}	
 
 Done
