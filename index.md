@@ -11,6 +11,12 @@ _by Miran Lipovača._
 
 _adapted for Elm by Joey Eremondi._
 
+Contents
+----
+
+* auto-gen TOC:
+{:toc}
+
 Done
 ----
 
