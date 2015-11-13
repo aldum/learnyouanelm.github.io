@@ -1,3 +1,8 @@
+---
+layout: post
+title: Hello Recursion!
+---
+
 #NOTE#
 
 This chapter has not yet been adapted to Elm. While Elm is very similar to Haskell,
