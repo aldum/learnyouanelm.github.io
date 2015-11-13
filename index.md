@@ -14,7 +14,7 @@ _adapted for Elm by Joey Eremondi._
 Contents 
 ----
 
-{% for post in site.en %}	
+{% for post in site.pages %}	
     <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
 {% endfor %}	
 
