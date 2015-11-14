@@ -44,7 +44,21 @@ v-collapse">
 
     <div class="container">
 
+{% if page.next and page.next.categories contains "blog" %}
+  <a href="{{ page.next.url }}">Next Post</a>
+{% endif %}
+{% if page.previous and page.previous.categories contains "blog" %}
+  <a href="{{ page.previous.url }}">Previous Post</a>
+{% endif %}
+
       {{ content }}
+      
+{% if page.next and page.next.categories contains "blog" %}
+  <a href="{{ page.next.url }}">Next Post</a>
+{% endif %}
+{% if page.previous and page.previous.categories contains "blog" %}
+  <a href="{{ page.previous.url }}">Previous Post</a>
+{% endif %}      
 
     </div>
 
