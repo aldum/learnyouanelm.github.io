@@ -23,9 +23,9 @@ some function to get a very basic feel for haskell. Open your terminal
 and type in ghci. You will be greeted with something like this.
 
 {% highlight haskell %}
-GHCi, version 6.8.2: http://www.haskell.org/ghc/  :? for help
-Loading package base ... linking ... done.
-Prelude>
+    GHCi, version 6.8.2: http://www.haskell.org/ghc/  :? for help
+    Loading package base ... linking ... done.
+    Prelude>
 {% endhighlight %}
 
 Congratulations, you're in GHCI! The prompt here is Prelude\> but
@@ -36,15 +36,15 @@ going to use ghci\>. If you want to have the same prompt, just type in
 Here's some simple arithmetic.
 
 {% highlight haskell %}
-ghci> 2 + 15
-17
-ghci> 49 * 100
-4900
-ghci> 1892 - 1472
-420
-ghci> 5 / 2
-2.5
-ghci>
+    ghci> 2 + 15
+    17
+    ghci> 49 * 100
+    4900
+    ghci> 1892 - 1472
+    420
+    ghci> 5 / 2
+    2.5
+    ghci>
 {% endhighlight %}
 
 This is pretty self-explanatory. We can also use several operators on
