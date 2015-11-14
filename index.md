@@ -3,7 +3,7 @@ layout: post
 title: Learn You An Elm
 ---
 
-Learn You an _Elm_ 
+Learn You an _Elm_
 =====================================
 _Based on [Learn You a Haskell for a Great Good](http://learnyouahaskell.com/chapters)._
 
@@ -11,19 +11,19 @@ _by Miran Lipovača._
 
 _adapted for Elm by Joey Eremondi._
 
-Contents 
+Contents
 ----
 
-{% for post in site.pages %}	
+{% for post in site.pages %}
 * [{{ post.title }}]({{ post.url }})
-{% endfor %}	
+{% endfor %}
 
 Done
 ----
 
 * Add disclaimer to all chapters that they are un-adapted for Elm
 * Intro updated for Elm
- 
+
 TODO
 ----
 
@@ -33,6 +33,8 @@ TODO
 * Replace "Input and Output" with "Signals and Tasks"
 * Change Monad/Applicative/Functor terminology
 * Fix image references so can be viewed easily online
+* Describe `String` vs `List Char`
+* Descrive Records as an extension of tuples
 
 License
 -------
