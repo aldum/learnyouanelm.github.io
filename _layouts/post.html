@@ -44,10 +44,10 @@ v-collapse">
 
     <div class="container">
 
-{% if page.next and page.next.categories contains "blog" %}
+{% if page.next %}
   <a href="{{ page.next.url }}">Next Post</a>
 {% endif %}
-{% if page.previous and page.previous.categories contains "blog" %}
+{% if page.previous %}
   <a href="{{ page.previous.url }}">Previous Post</a>
 {% endif %}
 
