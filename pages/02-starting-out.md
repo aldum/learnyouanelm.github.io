@@ -51,7 +51,7 @@ This is pretty self-explanatory. We can also use several operators on
 one line and all the usual precedence rules are obeyed. We can use
 parentheses to make the precedence explicit or to change it.
 
-```elm
+```
 (50 * 100) - 4999
 1
 50 * 100 - 4999
