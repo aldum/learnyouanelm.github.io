@@ -22,7 +22,7 @@ first thing we're going to do is run ghc's interactive mode and call
 some function to get a very basic feel for haskell. Open your terminal
 and type in ghci. You will be greeted with something like this.
 
-{% highlight elm %}
+{% highlight haskell %}
 GHCi, version 6.8.2: http://www.haskell.org/ghc/  :? for help
 Loading package base ... linking ... done.
 Prelude>
@@ -35,7 +35,7 @@ going to use ghci\>. If you want to have the same prompt, just type in
 
 Here's some simple arithmetic.
 
-{% highlight elm %}
+{% highlight haskell %}
 ghci> 2 + 15
 17
 ghci> 49 * 100
