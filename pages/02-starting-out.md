@@ -75,33 +75,37 @@ Boolean algebra is also pretty straightforward. As you probably know, &&
 means a boolean *and*, || means a boolean *or*. not negates a True or a
 False.
 
-```elm
-ghci> True && False
-False
-ghci> True && True
-True
-ghci> False || True
-True
-ghci> not False
-True
-ghci> not (True && True)
-False
-```
+{% highlight haskell %}
+
+    ghci> True && False
+    False
+    ghci> True && True
+    True
+    ghci> False || True
+    True
+    ghci> not False
+    True
+    ghci> not (True && True)
+    False
+
+{% endhighlight %}
 
 Testing for equality is done like so.
 
-```elm
-ghci> 5 == 5
-True
-ghci> 1 == 0
-False
-ghci> 5 /= 5
-False
-ghci> 5 /= 4
-True
-ghci> "hello" == "hello"
-True
-```
+{% highlight haskell %}
+
+    ghci> 5 == 5
+    True
+    ghci> 1 == 0
+    False
+    ghci> 5 /= 5
+    False
+    ghci> 5 /= 4
+    True
+    ghci> "hello" == "hello"
+    True
+
+{% endhighlight %}
 
 What about doing 5 + "llama" or 5 == True? Well, if we try the first
 snippet, we get a big scary error message!
