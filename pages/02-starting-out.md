@@ -51,15 +51,15 @@ This is pretty self-explanatory. We can also use several operators on
 one line and all the usual precedence rules are obeyed. We can use
 parentheses to make the precedence explicit or to change it.
 
-```
-(50 * 100) - 4999
-1
-50 * 100 - 4999
-1
 
-50 * (100 - 4999)
--244950
-```
+    (50 * 100) - 4999
+    1
+    50 * 100 - 4999
+    1
+    
+    50 * (100 - 4999)
+    -244950
+
 
 Pretty cool, huh? Yeah, I know it's not but bear with me. A little
 pitfall to watch out for here is negating numbers. If we want to have a
