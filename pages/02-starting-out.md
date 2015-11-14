@@ -27,7 +27,7 @@ and type in ghci. You will be greeted with something like this.
     GHCi, version 6.8.2: http://www.haskell.org/ghc/  :? for help
     Loading package base ... linking ... done.
     Prelude>
-    
+
 {% endhighlight %}
 
 Congratulations, you're in GHCI! The prompt here is Prelude\> but
@@ -48,22 +48,24 @@ Here's some simple arithmetic.
     ghci> 5 / 2
     2.5
     ghci>
-    
+
 {% endhighlight %}
 
 This is pretty self-explanatory. We can also use several operators on
 one line and all the usual precedence rules are obeyed. We can use
 parentheses to make the precedence explicit or to change it.
 
+{% highlight haskell %}
 
     (50 * 100) - 4999
     1
     50 * 100 - 4999
     1
-    
+
     50 * (100 - 4999)
     -244950
 
+{% endhighlight %}
 
 Pretty cool, huh? Yeah, I know it's not but bear with me. A little
 pitfall to watch out for here is negating numbers. If we want to have a
@@ -110,13 +112,15 @@ Testing for equality is done like so.
 What about doing 5 + "llama" or 5 == True? Well, if we try the first
 snippet, we get a big scary error message!
 
-```elm
+{% highlight haskell %}
+
 No instance for (Num [Char])
 arising from a use of `+' at <interactive>:1:0-9
 Possible fix: add an instance declaration for (Num [Char])
 In the expression: 5 + "llama"
 In the definition of `it': it = 5 + "llama"
-```
+
+{% endhighlight %}
 
 Yikes! What GHCI is telling us here is that "llama" is not a number and
 so it doesn't know how to add it to 5. Even if it wasn't "llama" but
@@ -145,10 +149,12 @@ Haskell, functions are called by writing the function name, a space and
 then the parameters, separated by spaces. For a start, we'll try calling
 one of the most boring functions in Haskell.
 
-```elm
+{% highlight haskell %}
+
 ghci> succ 8
 9
-```
+
+{% endhighlight %}
 
 The succ function takes anything that has a defined successor and
 returns that successor. As you can see, we just separate the function
@@ -157,25 +163,29 @@ parameters is also simple. The functions min and max take two things
 that can be put in an order (like numbers!). min returns the one that's
 lesser and max returns the one that's greater. See for yourself:
 
-```elm
+{% highlight haskell %}
+
 ghci> min 9 10
 9
 ghci> min 3.4 3.2
 3.2
 ghci> max 100 101
 101
-```
+
+{% endhighlight %}
 
 Function application (calling a function by putting a space after it and
 then typing out the parameters) has the highest precedence of them all.
 What that means for us is that these two statements are equivalent.
 
-```elm
+{% highlight haskell %}
+
 ghci> succ 9 + max 5 4 + 1
 16
 ghci> (succ 9) + (max 5 4) + 1
 16
-```
+
+{% endhighlight %}
 
 However, if we wanted to get the successor of the product of numbers 9
 and 10, we couldn't write succ 9 \* 10 because that would get the
@@ -208,9 +218,11 @@ In the previous section we got a basic feel for calling functions. Now
 let's try making our own! Open up your favorite text editor and punch in
 this function that takes a number and multiplies it by two.
 
-``` {.haskell: .hs name="code"}
+{% highlight haskell %}
+
 doubleMe x = x + x
-```
+
+{% endhighlight %}
 
 Functions are defined in a similar way that they are called. The
 function name is followed by parameters seperated by spaces. But when
@@ -220,7 +232,8 @@ it's saved and run ghci from there. Once inside GHCI, do :l baby. Now
 that our script is loaded, we can play with the function that we
 defined.
 
-```elm
+{% highlight haskell %}
+
 ghci> :l baby
 [1 of 1] Compiling Main             ( baby.hs, interpreted )
 Ok, modules loaded: Main.
@@ -228,37 +241,44 @@ ghci> doubleMe 9
 18
 ghci> doubleMe 8.3
 16.6
-```
+
+{% endhighlight %}
 
 Because + works on integers as well as on floating-point numbers
 (anything that can be considered a number, really), our function also
 works on any number. Let's make a function that takes two numbers and
 multiplies each by two and then adds them together.
 
-``` {.haskell: .hs name="code"}
+{% highlight haskell %}
+
 doubleUs x y = x*2 + y*2
-```
+
+{% endhighlight %}
 
 Simple. We could have also defined it as doubleUs x y = x + x + y + y.
 Testing it out produces pretty predictable results (remember to append
 this function to the baby.hs file, save it and then do :l baby inside
 GHCI).
 
-```elm
+{% highlight haskell %}
+
 ghci> doubleUs 4 9
 26
 ghci> doubleUs 2.3 34.2
 73.0
 ghci> doubleUs 28 88 + doubleMe 123
 478
-```
+
+{% endhighlight %}
 
 As expected, you can call your own functions from other functions that
 you made. With that in mind, we could redefine doubleUs like this:
 
-``` {.haskell: .hs name="code"}
+{% highlight haskell %}
+
 doubleUs x y = doubleMe x + doubleMe y
-```
+
+{% endhighlight %}
 
 This is a very simple example of a common pattern you will see
 throughout Haskell. Making basic functions that are obviously correct
@@ -276,11 +296,13 @@ Now we're going to make a function that multiplies a number by 2 but
 only if that number is smaller than or equal to 100 because numbers
 bigger than 100 are big enough as it is!
 
-``` {.haskell: .hs name="code"}
+{% highlight haskell %}
+
 doubleSmallNumber x = if x > 100
                         then x
                         else x*2
-```
+
+{% endhighlight %}
 
 ![this is you](img/baby.png)
 
@@ -300,9 +322,11 @@ something and that's why it's an expression. If we wanted to add one to
 every number that's produced in our previous function, we could have
 written its body like this.
 
-``` {.haskell: .hs name="code"}
+{% highlight haskell %}
+
 doubleSmallNumber' x = (if x > 100 then x else x*2) + 1
-```
+
+{% endhighlight %}
 
 Had we omitted the parentheses, it would have added one only if x wasn't
 greater than 100. Note the ' at the end of the function name. That
@@ -312,9 +336,11 @@ denote a strict version of a function (one that isn't lazy) or a
 slightly modified version of a function or a variable. Because ' is a
 valid character in functions, we can make a function like this.
 
-``` {.haskell: .hs name="code"}
+{% highlight haskell %}
+
 conanO'Brien = "It's a-me, Conan O'Brien!"
-```
+
+{% endhighlight %}
 
 There are two noteworthy things here. The first is that in the function
 name we didn't capitalize Conan's name. That's because functions can't
@@ -344,11 +370,13 @@ integers and then a few characters. And now, a list!
 let a = 1 inside GHCI is the equivalent of writing a = 1 in a script and
 then loading it.
 
-```elm
+{% highlight haskell %}
+
 ghci> let lostNumbers = [4,8,15,16,23,42]
 ghci> lostNumbers
 [4,8,15,16,23,42]
-```
+
+{% endhighlight %}
 
 As you can see, lists are denoted by square brackets and the values in
 the lists are separated by commas. If we tried a list like
@@ -362,14 +390,16 @@ handy.
 A common task is putting two lists together. This is done by using the
 ++ operator.
 
-```elm
+{% highlight haskell %}
+
 ghci> [1,2,3,4] ++ [9,10,11,12]
 [1,2,3,4,9,10,11,12]
 ghci> "hello" ++ " " ++ "world"
 "hello world"
 ghci> ['w','o'] ++ ['o','t']
 "woot"
-```
+
+{% endhighlight %}
 
 Watch out when repeatedly using the ++ operator on long strings. When
 you put together two lists (even if you append a singleton list to a
@@ -380,12 +410,14 @@ of a list that's fifty million entries long is going to take a while.
 However, putting something at the beginning of a list using the :
 operator (also called the cons operator) is instantaneous.
 
-```elm
+{% highlight haskell %}
+
 ghci> 'A':" SMALL CAT"
 "A SMALL CAT"
 ghci> 5:[1,2,3,4,5]
 [5,1,2,3,4,5]
-```
+
+{% endhighlight %}
 
 Notice how : takes a number and a list of numbers or a character and a
 list of characters, whereas ++ takes two lists. Even if you're adding an
@@ -403,12 +435,14 @@ list, the third one is a list that contains three empty lists.
 If you want to get an element out of a list by index, use !!. The
 indices start at 0.
 
-```elm
+{% highlight haskell %}
+
 ghci> "Steve Buscemi" !! 6
 'B'
 ghci> [9.4,33.2,96.2,11.2,23.25] !! 1
 33.2
-```
+
+{% endhighlight %}
 
 But if you try to get the sixth element from a list that only has four
 elements, you'll get an error so be careful!
@@ -416,7 +450,8 @@ elements, you'll get an error so be careful!
 Lists can also contain lists. They can also contain lists that contain
 lists that contain lists …
 
-```elm
+{% highlight haskell %}
+
 ghci> let b = [[1,2,3,4],[5,3,3,3],[1,2,2,3,4],[1,2,3]]
 ghci> b
 [[1,2,3,4],[5,3,3,3],[1,2,2,3,4],[1,2,3]]
@@ -426,7 +461,8 @@ ghci> [6,6,6]:b
 [[6,6,6],[1,2,3,4],[5,3,3,3],[1,2,2,3,4],[1,2,3]]
 ghci> b !! 2
 [1,2,2,3,4]
-```
+
+{% endhighlight %}
 
 The lists within a list can be of different lengths but they can't be of
 different types. Just like you can't have a list that has some
@@ -438,7 +474,8 @@ using \<, \<=, \> and \>= to compare lists, they are compared in
 lexicographical order. First the heads are compared. If they are equal
 then the second elements are compared, etc.
 
-```elm
+{% highlight haskell %}
+
 ghci> [3,2,1] > [2,1,0]
 True
 ghci> [3,2,1] > [2,10,100]
@@ -449,7 +486,8 @@ ghci> [3,4,2] > [2,4]
 True
 ghci> [3,4,2] == [3,4,2]
 True
-```
+
+{% endhighlight %}
 
 What else can you do with lists? Here are some basic functions that
 operate on lists.
@@ -457,32 +495,40 @@ operate on lists.
 head takes a list and returns its head. The head of a list is basically
 its first element.
 
-```elm
+{% highlight haskell %}
+
 ghci> head [5,4,3,2,1]
 5
-```
+
+{% endhighlight %}
 
 tail takes a list and returns its tail. In other words, it chops off a
 list's head.
 
-```elm
+{% highlight haskell %}
+
 ghci> tail [5,4,3,2,1]
 [4,3,2,1]
-```
+
+{% endhighlight %}
 
 last takes a list and returns its last element.
 
-```elm
+{% highlight haskell %}
+
 ghci> last [5,4,3,2,1]
 1
-```
+
+{% endhighlight %}
 
 init takes a list and returns everything except its last element.
 
-```elm
+{% highlight haskell %}
+
 ghci> init [5,4,3,2,1]
 [5,4,3,2]
-```
+
+{% endhighlight %}
 
 If we think of a list as a monster, here's what's what.
 
@@ -490,10 +536,12 @@ If we think of a list as a monster, here's what's what.
 
 But what happens if we try to get the head of an empty list?
 
-```elm
+{% highlight haskell %}
+
 ghci> head []
 *** Exception: Prelude.head: empty list
-```
+
+{% endhighlight %}
 
 Oh my! It all blows up in our face! If there's no monster, it doesn't
 have a head. When using head, tail, last and init, be careful not to use
@@ -503,33 +551,40 @@ Haskell to give you some elements from an empty list.
 
 length takes a list and returns its length, obviously.
 
-```elm
+{% highlight haskell %}
+
 ghci> length [5,4,3,2,1]
 5
-```
+
+{% endhighlight %}
 
 null checks if a list is empty. If it is, it returns True, otherwise it
 returns False. Use this function instead of xs == [] (if you have a list
 called xs)
 
-```elm
+{% highlight haskell %}
+
 ghci> null [1,2,3]
 False
 ghci> null []
 True
-```
+
+{% endhighlight %}
 
 reverse reverses a list.
 
-```elm
+{% highlight haskell %}
+
 ghci> reverse [5,4,3,2,1]
 [1,2,3,4,5]
-```
+
+{% endhighlight %}
 
 take takes number and a list. It extracts that many elements from the
 beginning of the list. Watch.
 
-```elm
+{% highlight haskell %}
+
 ghci> take 3 [5,4,3,2,1]
 [5,4,3]
 ghci> take 1 [3,9,3]
@@ -538,7 +593,8 @@ ghci> take 5 [1,2]
 [1,2]
 ghci> take 0 [6,6,6]
 []
-```
+
+{% endhighlight %}
 
 See how if we try to take more elements than there are in the list, it
 just returns the list. If we try to take 0 elements, we get an empty
@@ -547,50 +603,58 @@ list.
 drop works in a similar way, only it drops the number of elements from
 the beginning of a list.
 
-```elm
+{% highlight haskell %}
+
 ghci> drop 3 [8,4,2,1,5,6]
 [1,5,6]
 ghci> drop 0 [1,2,3,4]
 [1,2,3,4]
 ghci> drop 100 [1,2,3,4]
 []
-```
+
+{% endhighlight %}
 
 maximum takes a list of stuff that can be put in some kind of order and
 returns the biggest element.
 
 minimum returns the smallest.
 
-```elm
+{% highlight haskell %}
+
 ghci> minimum [8,4,2,1,5,6]
 1
 ghci> maximum [1,9,2,3,4]
 9
-```
+
+{% endhighlight %}
 
 sum takes a list of numbers and returns their sum.
 
 product takes a list of numbers and returns their product.
 
-```elm
+{% highlight haskell %}
+
 ghci> sum [5,2,1,6,3,2,5,7]
 31
 ghci> product [6,2,1,2]
 24
 ghci> product [1,2,5,6,7,9,2,0]
 0
-```
+
+{% endhighlight %}
 
 elem takes a thing and a list of things and tells us if that thing is an
 element of the list. It's usually called as an infix function because
 it's easier to read that way.
 
-```elm
+{% highlight haskell %}
+
 ghci> 4 `elem` [3,4,5,6]
 True
 ghci> 10 `elem` [3,4,5,6]
 False
-```
+
+{% endhighlight %}
 
 Those were a few basic functions that operate on lists. We'll take a
 look at more list functions [later](modules#data-list)
@@ -614,24 +678,28 @@ write [1..20]. That is the equivalent of writing
 difference between writing one or the other except that writing out long
 enumeration sequences manually is stupid.
 
-```elm
+{% highlight haskell %}
+
 ghci> [1..20]
 [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 ghci> ['a'..'z']
 "abcdefghijklmnopqrstuvwxyz"
 ghci> ['K'..'Z']
 "KLMNOPQRSTUVWXYZ"
-```
+
+{% endhighlight %}
 
 Ranges are cool because you can also specify a step. What if we want all
 even numbers between 1 and 20? Or every third number between 1 and 20?
 
-```elm
+{% highlight haskell %}
+
 ghci> [2,4..20]
 [2,4,6,8,10,12,14,16,18,20]
 ghci> [3,6..20]
 [3,6,9,12,15,18]
-```
+
+{% endhighlight %}
 
 It's simply a matter of separating the first two elements with a comma
 and then specifying what the upper limit is. While pretty smart, ranges
@@ -648,10 +716,12 @@ Watch out when using floating point numbers in ranges! Because they are
 not completely precise (by definition), their use in ranges can yield
 some pretty funky results.
 
-```elm
+{% highlight haskell %}
+
 ghci> [0.1, 0.3 .. 1]
 [0.1,0.3,0.5,0.7,0.8999999999999999,1.0999999999999999]
-```
+
+{% endhighlight %}
 
 My advice is not to use them in list ranges.
 
@@ -670,20 +740,24 @@ cycle takes a list and cycles it into an infinite list. If you just try
 to display the result, it will go on forever so you have to slice it off
 somewhere.
 
-```elm
+{% highlight haskell %}
+
 ghci> take 10 (cycle [1,2,3])
 [1,2,3,1,2,3,1,2,3,1]
 ghci> take 12 (cycle "LOL ")
 "LOL LOL LOL "
-```
+
+{% endhighlight %}
 
 repeat takes an element and produces an infinite list of just that
 element. It's like cycling a list with only one element.
 
-```elm
+{% highlight haskell %}
+
 ghci> take 10 (repeat 5)
 [5,5,5,5,5,5,5,5,5,5]
-```
+
+{% endhighlight %}
 
 Although it's simpler to just use the replicate function if you want
 some number of the same element in a list. replicate 3 10 returns
@@ -712,28 +786,34 @@ x is drawn from [1..10] and for every element in [1..10] (which we have
 bound to x), we get that element, only doubled. Here's that
 comprehension in action.
 
-```elm
+{% highlight haskell %}
+
 ghci> [x*2 | x <- [1..10]]
 [2,4,6,8,10,12,14,16,18,20]
-```
+
+{% endhighlight %}
 
 As you can see, we get the desired results. Now let's add a condition
 (or a predicate) to that comprehension. Predicates go after the binding
 parts and are separated from them by a comma. Let's say we want only the
 elements which, doubled, are greater than or equal to 12.
 
-```elm
+{% highlight haskell %}
+
 ghci> [x*2 | x <- [1..10], x*2 >= 12]
 [12,14,16,18,20]
-```
+
+{% endhighlight %}
 
 Cool, it works. How about if we wanted all numbers from 50 to 100 whose
 remainder when divided with the number 7 is 3? Easy.
 
-```elm
+{% highlight haskell %}
+
 ghci> [ x | x <- [50..100], x `mod` 7 == 3]
 [52,59,66,73,80,87,94]
-```
+
+{% endhighlight %}
 
 Success! Note that weeding out lists by predicates is also called
 *filtering*. We took a list of numbers and we filtered them by the
@@ -743,26 +823,32 @@ number that's less than 10 with "BOOM!". If a number isn't odd, we throw
 it out of our list. For convenience, we'll put that comprehension inside
 a function so we can easily reuse it.
 
-```elm
+{% highlight haskell %}
+
 boomBangs xs = [ if x < 10 then "BOOM!" else "BANG!" | x <- xs, odd x]
-```
+
+{% endhighlight %}
 
 The last part of the comprehension is the predicate. The function odd
 returns True on an odd number and False on an even one. The element is
 included in the list only if all the predicates evaluate to True.
 
-``` {.haskell: .hs name="code"}
+{% highlight haskell %}
+
 ghci> boomBangs [7..13]
 ["BOOM!","BOOM!","BANG!","BANG!"]
-```
+
+{% endhighlight %}
 
 We can include several predicates. If we wanted all numbers from 10 to
 20 that are not 13, 15 or 19, we'd do:
 
-```elm
+{% highlight haskell %}
+
 ghci> [ x | x <- [10..20], x /= 13, x /= 15, x /= 19]
 [10,11,12,14,16,17,18,20]
-```
+
+{% endhighlight %}
 
 Not only can we have multiple predicates in list comprehensions (an
 element must satisfy all the predicates to be included in the resulting
@@ -774,35 +860,43 @@ of 16, provided we don't filter them. If we have two lists, [2,5,10] and
 [8,10,11] and we want to get the products of all the possible
 combinations between numbers in those lists, here's what we'd do.
 
-```elm
+{% highlight haskell %}
+
 ghci> [ x*y | x <- [2,5,10], y <- [8,10,11]]
 [16,20,22,40,50,55,80,100,110]
-```
+
+{% endhighlight %}
 
 As expected, the length of the new list is 9. What if we wanted all
 possible products that are more than 50?
 
-```elm
+{% highlight haskell %}
+
 ghci> [ x*y | x <- [2,5,10], y <- [8,10,11], x*y > 50]
 [55,80,100,110]
-```
+
+{% endhighlight %}
 
 How about a list comprehension that combines a list of adjectives and a
 list of nouns … for epic hilarity.
 
-```elm
+{% highlight haskell %}
+
 ghci> let nouns = ["hobo","frog","pope"]
 ghci> let adjectives = ["lazy","grouchy","scheming"]
 ghci> [adjective ++ " " ++ noun | adjective <- adjectives, noun <- nouns]
 ["lazy hobo","lazy frog","lazy pope","grouchy hobo","grouchy frog",
 "grouchy pope","scheming hobo","scheming frog","scheming pope"]
-```
+
+{% endhighlight %}
 
 I know! Let's write our own version of length! We'll call it length'.
 
-``` {.haskell: .hs name="code"}
+{% highlight haskell %}
+
 length' xs = sum [1 | _ <- xs]
-```
+
+{% endhighlight %}
 
 \_ means that we don't care what we'll draw from the list anyway so
 instead of writing a variable name that we'll never use, we just write
@@ -814,18 +908,22 @@ Just a friendly reminder: because strings are lists, we can use list
 comprehensions to process and produce strings. Here's a function that
 takes a string and removes everything except uppercase letters from it.
 
-``` {.haskell: .hs name="code"}
+{% highlight haskell %}
+
 removeNonUppercase st = [ c | c <- st, c `elem` ['A'..'Z']]
-```
+
+{% endhighlight %}
 
 Testing it out:
 
-```elm
+{% highlight haskell %}
+
 ghci> removeNonUppercase "Hahaha! Ahahaha!"
 "HA"
 ghci> removeNonUppercase "IdontLIKEFROGS"
 "ILIKEFROGS"
-```
+
+{% endhighlight %}
 
 The predicate here does all the work. It says that the character will be
 included in the new list only if it's an element of the list ['A'..'Z'].
@@ -833,11 +931,13 @@ Nested list comprehensions are also possible if you're operating on
 lists that contain lists. A list contains several lists of numbers.
 Let's remove all odd numbers without flattening the list.
 
-```elm
+{% highlight haskell %}
+
 ghci> let xxs = [[1,3,5,2,3,1,2,4,5],[1,2,3,4,5,6,7,8,9],[1,2,4,2,1,6,3,1,3,2,3,6]]
 ghci> [ [ x | x <- xs, even x ] | xs <- xxs]
 [[2,2,4],[2,4,6,8],[2,4,2,6,2,6]]
-```
+
+{% endhighlight %}
 
 You can write list comprehensions across several lines. So if you're not
 in GHCI, it's better to split longer list comprehensions across multiple
@@ -874,13 +974,15 @@ Instead of surrounding the vectors with square brackets, we use
 parentheses: [(1,2),(8,11),(4,5)]. What if we tried to make a shape like
 [(1,2),(8,11,5),(4,5)]? Well, we'd get this error:
 
-```elm
+{% highlight haskell %}
+
 Couldn't match expected type `(t, t1)'
 against inferred type `(t2, t3, t4)'
 In the expression: (8, 11, 5)
 In the expression: [(1, 2), (8, 11, 5), (4, 5)]
 In the definition of `it': it = [(1, 2), (8, 11, 5), (4, 5)]
-```
+
+{% endhighlight %}
 
 It's telling us that we tried to use a pair and a triple in the same
 list, which is not supposed to happen. You also couldn't make a list
@@ -910,21 +1012,25 @@ functions that operate on pairs:
 
 fst takes a pair and returns its first component.
 
-```elm
+{% highlight haskell %}
+
 ghci> fst (8,11)
 8
 ghci> fst ("Wow", False)
 "Wow"
-```
+
+{% endhighlight %}
 
 snd takes a pair and returns its second component. Surprise!
 
-```elm
+{% highlight haskell %}
+
 ghci> snd (8,11)
 11
 ghci> snd ("Wow", False)
 False
-```
+
+{% endhighlight %}
 
 *Note:* these functions operate only on pairs. They won't work on
 triples, 4-tuples, 5-tuples, etc. We'll go over extracting data from
@@ -936,12 +1042,14 @@ elements into pairs. It's a really simple function but it has loads of
 uses. It's especially useful for when you want to combine two lists in a
 way or traverse two lists simultaneously. Here's a demonstration.
 
-```elm
+{% highlight haskell %}
+
 ghci> zip [1,2,3,4,5] [5,5,5,5,5]
 [(1,5),(2,5),(3,5),(4,5),(5,5)]
 ghci> zip [1 .. 5] ["one", "two", "three", "four", "five"]
 [(1,"one"),(2,"two"),(3,"three"),(4,"four"),(5,"five")]
-```
+
+{% endhighlight %}
 
 It pairs up the elements and produces a new list. The first element goes
 with the first, the second with the second, etc. Notice that because
@@ -949,19 +1057,23 @@ pairs can have different types in them, zip can take two lists that
 contain different types and zip them up. What happens if the lengths of
 the lists don't match?
 
-```elm
+{% highlight haskell %}
+
 ghci> zip [5,3,2,6,2,7,2,5,4,6,6] ["im","a","turtle"]
 [(5,"im"),(3,"a"),(2,"turtle")]
-```
+
+{% endhighlight %}
 
 The longer list simply gets cut off to match the length of the shorter
 one. Because Haskell is lazy, we can zip finite lists with infinite
 lists:
 
-```elm
+{% highlight haskell %}
+
 ghci> zip [1..] ["apple", "orange", "cherry", "mango"]
 [(1,"apple"),(2,"orange"),(3,"cherry"),(4,"mango")]
-```
+
+{% endhighlight %}
 
 ![look at meee](img/pythag.png)
 
@@ -970,9 +1082,11 @@ right triangle that has integers for all sides and all sides equal to or
 smaller than 10 has a perimeter of 24? First, let's try generating all
 triangles with sides equal to or smaller than 10:
 
-```elm
+{% highlight haskell %}
+
 ghci> let triangles = [ (a,b,c) | c <- [1..10], b <- [1..10], a <- [1..10] ]
-```
+
+{% endhighlight %}
 
 We're just drawing from three lists and our output function is combining
 them into a triple. If you evaluate that by typing out triangles in
@@ -982,18 +1096,22 @@ triangles. We'll also modify this function by taking into consideration
 that side b isn't larger than the hypothenuse and that side a isn't
 larger than side b.
 
-```elm
+{% highlight haskell %}
+
 ghci> let rightTriangles = [ (a,b,c) | c <- [1..10], b <- [1..c], a <- [1..b], a^2 + b^2 == c^2]
-```
+
+{% endhighlight %}
 
 We're almost done. Now, we just modify the function by saying that we
 want the ones where the perimeter is 24.
 
-```elm
+{% highlight haskell %}
+
 ghci> let rightTriangles' = [ (a,b,c) | c <- [1..10], b <- [1..c], a <- [1..b], a^2 + b^2 == c^2, a+b+c == 24]
 ghci> rightTriangles'
 [(6,8,10)]
-```
+
+{% endhighlight %}
 
 And there's our answer! This is a common pattern in functional
 programming. You take a starting set of solutions and then you apply
