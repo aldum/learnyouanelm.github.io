@@ -2,10 +2,6 @@
 layout: post
 title: Starting Out
 ---
-#NOTE#
-
-This chapter has not yet been adapted to Elm. While Elm is very similar to Elm,
-they are not the same language.
 
 Starting Out
 ============
@@ -28,13 +24,13 @@ basic computations.
 
 {% highlight haskell %}
 
-    import Graphics.Element exposing (show)
+import Graphics.Element exposing (show)
 
-    toPrint =
-      0
+toPrint =
+  0
 
-    main =
-      show toPrint
+main =
+  show toPrint
 
 {% endhighlight %}
 
@@ -46,15 +42,15 @@ To see different values, just change what is after
 
  {% highlight haskell %}
 
-     import Graphics.Element exposing (show)
+import Graphics.Element exposing (show)
 
-     toPrint =
-       2 + 15
+toPrint =
+2 + 15
 
-     main =
-       show toPrint
+main =
+show toPrint
 
- {% endhighlight %}
+{% endhighlight %}
 
  We won't write out the `import` and `main` lines each time:
  just leave them in the file and change the value of `toPrint`.
@@ -63,14 +59,14 @@ Here's some simple arithmetic.
 
 {% highlight haskell %}
 
-    toPrint = 2 + 15
-    17
-    toPrint = 49 * 100
-    4900
-    toPrint = 1892 - 1472
-    420
-    toPrint = 5 / 2
-    2.5
+toPrint = 2 + 15
+17
+toPrint = 49 * 100
+4900
+toPrint = 1892 - 1472
+420
+toPrint = 5 / 2
+2.5
 
 {% endhighlight %}
 
@@ -80,12 +76,12 @@ parentheses to make the precedence explicit or to change it.
 
 {% highlight haskell %}
 
-    toPrint = (50 * 100) - 4999
-    1
-    toPrint = 50 * 100 - 4999
-    1
-    toPrint = 50 * (100 - 4999)
-    -244950
+toPrint = (50 * 100) - 4999
+1
+toPrint = 50 * 100 - 4999
+1
+toPrint = 50 * (100 - 4999)
+-244950
 
 {% endhighlight %}
 
@@ -97,16 +93,16 @@ False.
 
 {% highlight haskell %}
 
-    toPrint = True && False
-    False
-    toPrint = True && True
-    True
-    toPrint = False || True
-    True
-    toPrint = not False
-    True
-    toPrint = not (True && True)
-    False
+toPrint = True && False
+False
+toPrint = True && True
+True
+toPrint = False || True
+True
+toPrint = not False
+True
+toPrint = not (True && True)
+False
 
 {% endhighlight %}
 
@@ -114,16 +110,16 @@ Testing for equality is done like so.
 
 {% highlight haskell %}
 
-    toPrint = 5 == 5
-    True
-    toPrint = 1 == 0
-    False
-    toPrint = 5 /= 5
-    False
-    toPrint = 5 /= 4
-    True
-    toPrint = "hello" == "hello"
-    True
+toPrint = 5 == 5
+True
+toPrint = 1 == 0
+False
+toPrint = 5 /= 5
+False
+toPrint = 5 /= 4
+True
+toPrint = "hello" == "hello"
+True
 
 {% endhighlight %}
 
@@ -170,8 +166,8 @@ one of the most boring functions in Elm.
 
 {% highlight haskell %}
 
-    toPrint = identity 8
-    8
+toPrint = identity 8
+8
 
 {% endhighlight %}
 
@@ -184,12 +180,12 @@ lesser and max returns the one that's greater. See for yourself:
 
 {% highlight haskell %}
 
-    toPrint = min 9 10
-    9
-    toPrint = min 3.4 3.2
-    3.2
-    toPrint = max 100 101
-    101
+toPrint = min 9 10
+9
+toPrint = min 3.4 3.2
+3.2
+toPrint = max 100 101
+101
 
 {% endhighlight %}
 
@@ -199,10 +195,10 @@ What that means for us is that these two statements are equivalent.
 
 {% highlight haskell %}
 
-    toPrint = identity 9 + max 5 4 + 1
-    16
-    toPrint = (identity 9) + (max 5 4) + 1
-    16
+toPrint = identity 9 + max 5 4 + 1
+16
+toPrint = (identity 9) + (max 5 4) + 1
+16
 
 {% endhighlight %}
 
@@ -222,8 +218,8 @@ is being divided. So we can call it as an infix function by doing 92
 
 {% highlight haskell %}
 
-    toPrint = 92 `rem` 10
-    2
+toPrint = 92 `rem` 10
+2
 
 {% endhighlight %}
 
@@ -248,7 +244,7 @@ a function that takes a number and multiplies it by two.
 
 {% highlight haskell %}
 
-    doubleMe x = x + x
+doubleMe x = x + x
 
 {% endhighlight %}
 
@@ -260,10 +256,10 @@ defined.
 
 {% highlight haskell %}
 
-    toPrint = doubleMe 9
-    18
-    toPrint = doubleMe 8.3
-    16.6
+toPrint = doubleMe 9
+18
+toPrint = doubleMe 8.3
+16.6
 
 {% endhighlight %}
 
@@ -274,7 +270,7 @@ multiplies each by two and then adds them together.
 
 {% highlight haskell %}
 
-    doubleUs x y = x*2 + y*2
+doubleUs x y = x*2 + y*2
 
 {% endhighlight %}
 
@@ -283,12 +279,12 @@ Testing it out produces pretty predictable results.
 
 {% highlight haskell %}
 
-    toPrint = doubleUs 4 9
-    26
-    toPrint = doubleUs 2.3 34.2
-    73.0
-    toPrint = doubleUs 28 88 + doubleMe 123
-    478
+toPrint = doubleUs 4 9
+26
+toPrint = doubleUs 2.3 34.2
+73.0
+toPrint = doubleUs 28 88 + doubleMe 123
+478
 
 {% endhighlight %}
 
@@ -297,7 +293,7 @@ you made. With that in mind, we could redefine doubleUs like this:
 
 {% highlight haskell %}
 
-    doubleUs x y = doubleMe x + doubleMe y
+doubleUs x y = doubleMe x + doubleMe y
 
 {% endhighlight %}
 
@@ -319,9 +315,9 @@ bigger than 100 are big enough as it is!
 
 {% highlight haskell %}
 
-    doubleSmallNumber x = if x > 100
-                            then x
-                            else x*2
+doubleSmallNumber x = if x > 100
+                        then x
+                        else x*2
 
 {% endhighlight %}
 
@@ -345,7 +341,7 @@ written its body like this.
 
 {% highlight haskell %}
 
-    doubleSmallNumber' x = (if x > 100 then x else x*2) + 1
+doubleSmallNumber' x = (if x > 100 then x else x*2) + 1
 
 {% endhighlight %}
 
@@ -359,7 +355,7 @@ valid character in functions, we can make a function like this.
 
 {% highlight haskell %}
 
-    conanO'Brien = "It's a-me, Conan O'Brien!"
+conanO'Brien = "It's a-me, Conan O'Brien!"
 
 {% endhighlight %}
 
@@ -390,11 +386,11 @@ integers and then a few characters. And now, a list!
 
 {% highlight haskell %}
 
-    lostNumbers = [4,8,15,16,23,42]
+lostNumbers = [4,8,15,16,23,42]
 
-    toPrint = lostNumbers
+toPrint = lostNumbers
 
-    [4,8,15,16,23,42]
+[4,8,15,16,23,42]
 
 {% endhighlight %}
 
@@ -409,9 +405,8 @@ A common task is putting two lists together. This is done by using the
 
 {% highlight haskell %}
 
-  toPrint = [1,2,3,4] ++ [9,10,11,12]
-
-  [1,2,3,4,9,10,11,12]
+toPrint = [1,2,3,4] ++ [9,10,11,12]
+[1,2,3,4,9,10,11,12]
 
 {% endhighlight %}
 
@@ -426,8 +421,8 @@ operator (also called the cons operator) is instantaneous.
 
 {% highlight haskell %}
 
-    toPrint = 5 :: [1,2,3,4,5]
-    [5,1,2,3,4,5]
+toPrint = 5 :: [1,2,3,4,5]
+[5,1,2,3,4,5]
 
 {% endhighlight %}
 
@@ -463,8 +458,8 @@ its first element.
 
 {% highlight haskell %}
 
-    toPrint = head [5,4,3,2,1]
-    Just 5
+toPrint = head [5,4,3,2,1]
+Just 5
 
 {% endhighlight %}
 
@@ -473,8 +468,8 @@ list's head.
 
 {% highlight haskell %}
 
-    toPrint = tail [5,4,3,2,1]
-    Just [4,3,2,1]
+toPrint = tail [5,4,3,2,1]
+Just [4,3,2,1]
 
 {% endhighlight %}
 
@@ -483,8 +478,8 @@ But what happens if we try to get the head of an empty list?
 
 {% highlight haskell %}
 
-    toPrint = head []
-    Nothing
+toPrint = head []
+Nothing
 
 {% endhighlight %}
 
@@ -499,8 +494,8 @@ length takes a list and returns its length, obviously.
 
 {% highlight haskell %}
 
-    toPrint = length [5,4,3,2,1]
-    5
+toPrint = length [5,4,3,2,1]
+5
 
 {% endhighlight %}
 
@@ -510,10 +505,10 @@ called xs)
 
 {% highlight haskell %}
 
-    toPrint = isEmpty [1,2,3]
-    False
-    toPrint = isEmpty []
-    True
+toPrint = isEmpty [1,2,3]
+False
+toPrint = isEmpty []
+True
 
 {% endhighlight %}
 
@@ -521,8 +516,8 @@ reverse reverses a list.
 
 {% highlight haskell %}
 
-    toPrint = reverse [5,4,3,2,1]
-    [1,2,3,4,5]
+toPrint = reverse [5,4,3,2,1]
+[1,2,3,4,5]
 
 {% endhighlight %}
 
@@ -531,14 +526,14 @@ beginning of the list. Watch.
 
 {% highlight haskell %}
 
-    toPrint = take 3 [5,4,3,2,1]
-    [5,4,3]
-    toPrint = take 1 [3,9,3]
-    [3]
-    toPrint = take 5 [1,2]
-    [1,2]
-    toPrint = take 0 [6,6,6]
-    []
+toPrint = take 3 [5,4,3,2,1]
+[5,4,3]
+toPrint = take 1 [3,9,3]
+[3]
+toPrint = take 5 [1,2]
+[1,2]
+toPrint = take 0 [6,6,6]
+[]
 
 {% endhighlight %}
 
@@ -551,12 +546,12 @@ the beginning of a list.
 
 {% highlight haskell %}
 
-    toPrint = drop 3 [8,4,2,1,5,6]
-    [1,5,6]
-    toPrint = drop 0 [1,2,3,4]
-    [1,2,3,4]
-    toPrint = drop 100 [1,2,3,4]
-    []
+toPrint = drop 3 [8,4,2,1,5,6]
+[1,5,6]
+toPrint = drop 0 [1,2,3,4]
+[1,2,3,4]
+toPrint = drop 100 [1,2,3,4]
+[]
 
 {% endhighlight %}
 
@@ -567,12 +562,12 @@ minimum returns the smallest.
 
 {% highlight haskell %}
 
-    toPrint = minimum [8,4,2,1,5,6]
-    Just 1
-    toPrint = maximum [1,9,2,3,4]
-    Just 9
-    toPrint = []
-    Nothing
+toPrint = minimum [8,4,2,1,5,6]
+Just 1
+toPrint = maximum [1,9,2,3,4]
+Just 9
+toPrint = []
+Nothing
 
 {% endhighlight %}
 
@@ -585,12 +580,12 @@ product takes a list of numbers and returns their product.
 
 {% highlight haskell %}
 
-    toPrint = sum [5,2,1,6,3,2,5,7]
-    31
-    toPrint = product [6,2,1,2]
-    24
-    toPrint = product [1,2,5,6,7,9,2,0]
-    0
+toPrint = sum [5,2,1,6,3,2,5,7]
+31
+toPrint = product [6,2,1,2]
+24
+toPrint = product [1,2,5,6,7,9,2,0]
+0
 
 {% endhighlight %}
 
@@ -710,10 +705,10 @@ fst takes a pair and returns its first component.
 
 {% highlight haskell %}
 
-    toPrint = fst (8,11)
-    8
-    toPrint = fst ("Wow", False)
-    "Wow"
+toPrint = fst (8,11)
+8
+toPrint = fst ("Wow", False)
+"Wow"
 
 {% endhighlight %}
 
@@ -721,10 +716,10 @@ snd takes a pair and returns its second component. Surprise!
 
 {% highlight haskell %}
 
-    toPrint = snd (8,11)
-    11
-    toPrint = snd ("Wow", False)
-    False
+toPrint = snd (8,11)
+11
+toPrint = snd ("Wow", False)
+False
 
 {% endhighlight %}
 
