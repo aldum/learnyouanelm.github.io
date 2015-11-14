@@ -14,7 +14,7 @@ _adapted for Elm by Joey Eremondi._
 Contents
 ----
 
-{% for post in site.pages %}
+{% for post in site.posts %}
 * [{{ post.title }}]({{ post.url }})
 {% endfor %}
 
