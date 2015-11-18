@@ -45,10 +45,10 @@ To see different values, just change what is after
 import Graphics.Element exposing (show)
 
 toPrint =
-2 + 15
+  2 + 15
 
 main =
-show toPrint
+  show toPrint
 
 {% endhighlight %}
 
