@@ -90,7 +90,7 @@ Elm was made by Evan Czaplicki, who continues to develop it with
 the support of [Prezi, Inc.](https://prezi.com/).
 It is currently used in production by several companies,
 including [CircuitHub](https://www.circuithub.com/) and  
-NoRedInk(http://tech.noredink.com/).
+[NoRedInk](http://tech.noredink.com/).
 
 What you need to dive in
 ------------------------
