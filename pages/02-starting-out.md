@@ -431,7 +431,7 @@ list of characters, whereas `++` takes two lists. Even if you're adding an
 element to the end of a list with `++`, you have to surround it with
 square brackets so it becomes a list.
 
-`[1,2,3] `is actually just syntactic sugar for `1:2:3:[]`. `[]` is an empty
+`[1,2,3] `is actually just syntactic sugar for `1::2::3::[]`. `[]` is an empty
 list. If we prepend 3 to it, it becomes `[3]`. If we prepend 2 to that, it
 becomes `[2,3]`, and so on.
 
@@ -566,7 +566,7 @@ toPrint = minimum [8,4,2,1,5,6]
 Just 1
 toPrint = maximum [1,9,2,3,4]
 Just 9
-toPrint = []
+toPrint = maximum []
 Nothing
 
 {% endhighlight %}
@@ -589,12 +589,12 @@ toPrint = product [1,2,5,6,7,9,2,0]
 
 {% endhighlight %}
 
-elem takes a thing and a list of things and tells us if that thing is an
-element of the list.
+member takes a thing and a list of things and tells us if that thing is a
+member of the list.
 
 {% highlight haskell %}
 
-toPrint = member10 4 [3,4,5,6]
+toPrint = member 4 [3,4,5,6]
 True
 toPrint = member 10 [3,4,5,6]
 False
