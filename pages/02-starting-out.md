@@ -611,11 +611,7 @@ Texas ranges
 of all numbers between 1 and 20? Sure, we could just type them all out
 but obviously that's not a solution for gentlemen who demand excellence
 from their programming languages. Instead, we'll use ranges. Ranges are
-a way of making lists that are arithmetic sequences of elements that can
-be enumerated. Numbers can be enumerated. One, two, three, four, etc.
-Characters can also be enumerated. The alphabet is an enumeration of
-characters from A to Z. Names can't be enumerated. What comes after
-"John"? I don't know.
+a way of making lists that sequences of numbers.
 
 To make a list containing all the natural numbers from 1 to 20, you just
 write [1..20]. That is the equivalent of writing
