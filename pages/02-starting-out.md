@@ -22,7 +22,7 @@ it will print the value of the variable `toPrint` to the screen to the right.
 We'll use this to get a feel for Elm's syntax, and to see the result of some
 basic computations.
 
-{% highlight haskell %}
+```elm
 
 import Graphics.Element exposing (show)
 
@@ -32,7 +32,7 @@ toPrint =
 main =
   show toPrint
 
-{% endhighlight %}
+```
 
 Congratulations, you're coding in Elm.
 To see different values, just change what is after
