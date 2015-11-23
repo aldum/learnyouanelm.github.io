@@ -9,7 +9,10 @@ _Based on [Learn You a Haskell for a Great Good](http://learnyouahaskell.com/cha
 
 _by Miran Lipovača._
 
-_adapted for Elm by Joey Eremondi._
+Adapted for Elm by: 
+
+* Joey Eremondi
+* Alex Neslusan
 
 Contents
 ----
