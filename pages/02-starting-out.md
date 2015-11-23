@@ -23,7 +23,6 @@ We'll use this to get a feel for Elm's syntax, and to see the result of some
 basic computations.
 
 ```elm
-
 import Graphics.Element exposing (show)
 
 toPrint =
@@ -31,7 +30,6 @@ toPrint =
 
 main =
   show toPrint
-
 ```
 
 Congratulations, you're coding in Elm.
@@ -40,8 +38,7 @@ To see different values, just change what is after
 
  To try our first arithmetic, your code should look like this:
 
- {% highlight haskell %}
-
+ ```elm
 import Graphics.Element exposing (show)
 
 toPrint =
@@ -49,16 +46,14 @@ toPrint =
 
 main =
   show toPrint
-
-{% endhighlight %}
+```
 
  We won't write out the `import` and `main` lines each time:
  just leave them in the file and change the value of `toPrint`.
 
 Here's some simple arithmetic.
 
-{% highlight haskell %}
-
+```elm
 toPrint = 2 + 15
 17
 toPrint = 49 * 100
@@ -67,23 +62,20 @@ toPrint = 1892 - 1472
 420
 toPrint = 5 / 2
 2.5
-
-{% endhighlight %}
+```
 
 This is pretty self-explanatory. We can also use several operators on
 one line and all the usual precedence rules are obeyed. We can use
 parentheses to make the precedence explicit or to change it.
 
-{% highlight haskell %}
-
+```elm
 toPrint = (50 * 100) - 4999
 1
 toPrint = 50 * 100 - 4999
 1
 toPrint = 50 * (100 - 4999)
 -244950
-
-{% endhighlight %}
+```
 
 Pretty cool, huh? Yeah, I know it's not but bear with me.
 
@@ -91,8 +83,7 @@ Boolean algebra is also pretty straightforward. As you probably know, &&
 means a boolean *and*, || means a boolean *or*. not negates a True or a
 False.
 
-{% highlight haskell %}
-
+```elm
 toPrint = True && False
 False
 toPrint = True && True
@@ -103,13 +94,11 @@ toPrint = not False
 True
 toPrint = not (True && True)
 False
-
-{% endhighlight %}
+```
 
 Testing for equality is done like so.
 
-{% highlight haskell %}
-
+```elm
 toPrint = 5 == 5
 True
 toPrint = 1 == 0
@@ -120,8 +109,7 @@ toPrint = 5 /= 4
 True
 toPrint = "hello" == "hello"
 True
-
-{% endhighlight %}
+```
 
 What about doing 5 + "llama" or 5 == True? Well, if we try the first
 snippet, we get a nice error message!
@@ -164,12 +152,10 @@ Elm, functions are called by writing the function name, a space and
 then the parameters, separated by spaces. For a start, we'll try calling
 one of the most boring functions in Elm.
 
-{% highlight haskell %}
-
+```elm
 toPrint = identity 8
 8
-
-{% endhighlight %}
+```
 
 The `identity` function takes a value and returns that value.
 As you can see, we just separate the function
@@ -178,29 +164,25 @@ parameters is also simple. The functions min and max take two things
 that can be put in an order (like numbers!). min returns the one that's
 lesser and max returns the one that's greater. See for yourself:
 
-{% highlight haskell %}
-
+```elm
 toPrint = min 9 10
 9
 toPrint = min 3.4 3.2
 3.2
 toPrint = max 100 101
 101
-
-{% endhighlight %}
+```
 
 Function application (calling a function by putting a space after it and
 then typing out the parameters) has the highest precedence of them all.
 What that means for us is that these two statements are equivalent.
 
-{% highlight haskell %}
-
+```elm
 toPrint = identity 9 + max 5 4 + 1
 16
 toPrint = (identity 9) + (max 5 4) + 1
 16
-
-{% endhighlight %}
+```
 
 However, if we wanted to get the identity of the product of numbers 9
 and 10, we couldn't write identity 9 \* 10 because that would get the
@@ -216,12 +198,10 @@ be some confusion as to which number is doing the division and which one
 is being divided. So we can call it as an infix function by doing 92
 \` div \` 10 and suddenly it's much clearer.
 
-{% highlight haskell %}
-
+```elm
 toPrint = 92 `rem` 10
 2
-
-{% endhighlight %}
+```
 
 Lots of people who come from imperative languages tend to stick to the
 notion that parentheses should denote function application. For example,
@@ -242,11 +222,9 @@ let's try making our own! Go to our editor window and add this
 below the `import` line:
 a function that takes a number and multiplies it by two.
 
-{% highlight haskell %}
-
+```elm
 doubleMe x = x + x
-
-{% endhighlight %}
+```
 
 Functions are defined in a similar way that they are called. The
 function name is followed by parameters separated by spaces. But when
@@ -254,48 +232,40 @@ defining functions, there's an `=` and after that we define what the
 function does. Now we can play with the function that we
 defined.
 
-{% highlight haskell %}
-
+```elm
 toPrint = doubleMe 9
 18
 toPrint = doubleMe 8.3
 16.6
-
-{% endhighlight %}
+```
 
 Because + works on integers as well as on floating-point numbers
 (anything that can be considered a number, really), our function also
 works on any number. Let's make a function that takes two numbers and
 multiplies each by two and then adds them together.
 
-{% highlight haskell %}
-
+```elm
 doubleUs x y = x*2 + y*2
-
-{% endhighlight %}
+```
 
 Simple. We could have also defined it as `doubleUs x y = x + x + y + y`.
 Testing it out produces pretty predictable results.
 
-{% highlight haskell %}
-
+```elm
 toPrint = doubleUs 4 9
 26
 toPrint = doubleUs 2.3 34.2
 73.0
 toPrint = doubleUs 28 88 + doubleMe 123
 478
-
-{% endhighlight %}
+```
 
 As expected, you can call your own functions from other functions that
 you made. With that in mind, we could redefine doubleUs like this:
 
-{% highlight haskell %}
-
+```elm
 doubleUs x y = doubleMe x + doubleMe y
-
-{% endhighlight %}
+```
 
 This is a very simple example of a common pattern you will see
 throughout Elm. Making basic functions that are obviously correct
@@ -313,13 +283,11 @@ Now we're going to make a function that multiplies a number by 2 but
 only if that number is smaller than or equal to 100 because numbers
 bigger than 100 are big enough as it is!
 
-{% highlight haskell %}
-
+```elm
 doubleSmallNumber x = if x > 100
                         then x
                         else x*2
-
-{% endhighlight %}
+```
 
 ![this is you](img/baby.png)
 
@@ -339,11 +307,9 @@ something and that's why it's an expression. If we wanted to add one to
 every number that's produced in our previous function, we could have
 written its body like this.
 
-{% highlight haskell %}
-
+```elm
 doubleSmallNumber' x = (if x > 100 then x else x*2) + 1
-
-{% endhighlight %}
+```
 
 Had we omitted the parentheses, it would have added one only if x wasn't
 greater than 100. Note the ' at the end of the function name. That
@@ -353,11 +319,9 @@ denote a
 slightly modified version of a function or a variable. Because ' is a
 valid character in functions, we can make a function like this.
 
-{% highlight haskell %}
-
+```elm
 conanO'Brien = "It's a-me, Conan O'Brien!"
-
-{% endhighlight %}
+```
 
 There are two noteworthy things here. The first is that in the function
 name we didn't capitalize Conan's name. That's because functions can't
@@ -384,15 +348,13 @@ integers or a list of characters but we can't have a list that has a few
 integers and then a few characters. And now, a list!
 
 
-{% highlight haskell %}
-
+```elm
 lostNumbers = [4,8,15,16,23,42]
 
 toPrint = lostNumbers
 
 [4,8,15,16,23,42]
-
-{% endhighlight %}
+```
 
 As you can see, lists are denoted by square brackets and the values in
 the lists are separated by commas. If we tried a list like
@@ -403,12 +365,10 @@ numbers.
 A common task is putting two lists together. This is done by using the
 `++` operator.
 
-{% highlight haskell %}
-
+```elm
 toPrint = [1,2,3,4] ++ [9,10,11,12]
 [1,2,3,4,9,10,11,12]
-
-{% endhighlight %}
+```
 
 Watch out when repeatedly using the ++ operator on long strings. When
 you put together two lists (even if you append a singleton list to a
@@ -419,12 +379,10 @@ of a list that's fifty million entries long is going to take a while.
 However, putting something at the beginning of a list using the `::`
 operator (also called the cons operator) is instantaneous.
 
-{% highlight haskell %}
-
+```elm
 toPrint = 5 :: [1,2,3,4,5]
 [5,1,2,3,4,5]
-
-{% endhighlight %}
+```
 
 Notice how `::` takes a number and a list of numbers or a character and a
 list of characters, whereas `++` takes two lists. Even if you're adding an
@@ -456,32 +414,26 @@ operate on lists.
 head takes a list and returns its head. The head of a list is basically
 its first element.
 
-{% highlight haskell %}
-
+```elm
 toPrint = head [5,4,3,2,1]
 Just 5
-
-{% endhighlight %}
+```
 
 tail takes a list and returns its tail. In other words, it chops off a
 list's head.
 
-{% highlight haskell %}
-
+```elm
 toPrint = tail [5,4,3,2,1]
 Just [4,3,2,1]
-
-{% endhighlight %}
+```
 
 
 But what happens if we try to get the head of an empty list?
 
-{% highlight haskell %}
-
+```elm
 toPrint = head []
 Nothing
-
-{% endhighlight %}
+```
 
 What is `Nothing`? And why did `head` return `Just 5` before?
 We'll talk about that a bit more later, but for now,
@@ -492,40 +444,33 @@ where Nothing could have also been returned.
 
 length takes a list and returns its length, obviously.
 
-{% highlight haskell %}
-
+```elm
 toPrint = length [5,4,3,2,1]
 5
-
-{% endhighlight %}
+```
 
 isEmpty checks if a list is empty. If it is, it returns True, otherwise it
 returns False. Use this function instead of xs == [] (if you have a list
 called xs)
 
-{% highlight haskell %}
-
+```elm
 toPrint = isEmpty [1,2,3]
 False
 toPrint = isEmpty []
 True
-
-{% endhighlight %}
+```
 
 reverse reverses a list.
 
-{% highlight haskell %}
-
+```elm
 toPrint = reverse [5,4,3,2,1]
 [1,2,3,4,5]
-
-{% endhighlight %}
+```
 
 take takes number and a list. It extracts that many elements from the
 beginning of the list. Watch.
 
-{% highlight haskell %}
-
+```elm
 toPrint = take 3 [5,4,3,2,1]
 [5,4,3]
 toPrint = take 1 [3,9,3]
@@ -534,8 +479,7 @@ toPrint = take 5 [1,2]
 [1,2]
 toPrint = take 0 [6,6,6]
 []
-
-{% endhighlight %}
+```
 
 See how if we try to take more elements than there are in the list, it
 just returns the list. If we try to take 0 elements, we get an empty
@@ -544,32 +488,28 @@ list.
 drop works in a similar way, only it drops the number of elements from
 the beginning of a list.
 
-{% highlight haskell %}
-
+```elm
 toPrint = drop 3 [8,4,2,1,5,6]
 [1,5,6]
 toPrint = drop 0 [1,2,3,4]
 [1,2,3,4]
 toPrint = drop 100 [1,2,3,4]
 []
-
-{% endhighlight %}
+```
 
 maximum takes a list of stuff that can be put in some kind of order and
 returns the biggest element.
 
 minimum returns the smallest.
 
-{% highlight haskell %}
-
+```elm
 toPrint = minimum [8,4,2,1,5,6]
 Just 1
 toPrint = maximum [1,9,2,3,4]
 Just 9
 toPrint = maximum []
 Nothing
-
-{% endhighlight %}
+```
 
 What is the largest element of an empty list? There's no value we could
 return that would make sense, so we use `Just` and `Nothing` here.
@@ -578,28 +518,24 @@ sum takes a list of numbers and returns their sum.
 
 product takes a list of numbers and returns their product.
 
-{% highlight haskell %}
-
+```elm
 toPrint = sum [5,2,1,6,3,2,5,7]
 31
 toPrint = product [6,2,1,2]
 24
 toPrint = product [1,2,5,6,7,9,2,0]
 0
-
-{% endhighlight %}
+```
 
 member takes a thing and a list of things and tells us if that thing is a
 member of the list.
 
-{% highlight haskell %}
-
+```elm
 toPrint = member 4 [3,4,5,6]
 True
 toPrint = member 10 [3,4,5,6]
 False
-
-{% endhighlight %}
+```
 
 Those were a few basic functions that operate on lists. We'll take a
 look at more list functions [later](modules#data-list)
@@ -619,12 +555,10 @@ write [1..20]. That is the equivalent of writing
 difference between writing one or the other except that writing out long
 enumeration sequences manually is stupid.
 
-{% highlight haskell %}
-
+```elm
 toPrint = [1..20]
 [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
-
-{% endhighlight %}
+```
 
 
 
@@ -699,25 +633,21 @@ functions that operate on pairs:
 
 fst takes a pair and returns its first component.
 
-{% highlight haskell %}
-
+```elm
 toPrint = fst (8,11)
 8
 toPrint = fst ("Wow", False)
 "Wow"
-
-{% endhighlight %}
+```
 
 snd takes a pair and returns its second component. Surprise!
 
-{% highlight haskell %}
-
+```elm
 toPrint = snd (8,11)
 11
 toPrint = snd ("Wow", False)
 False
-
-{% endhighlight %}
+```
 
 *Note:* these functions operate only on pairs. They won't work on
 triples, 4-tuples, 5-tuples, etc. We'll go over extracting data from
