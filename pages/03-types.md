@@ -3,7 +3,7 @@ layout: post
 title: Intro to Types
 ---
 
-Types and Typeclasses
+Types
 =====================
 
 Believe the type
