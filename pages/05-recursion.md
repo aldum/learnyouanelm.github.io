@@ -274,8 +274,8 @@ quicksort list =
         [] -> []
         (x::xs) ->
             let 
-                smallerSorted = List.filter ((<=) x) xs
-                biggerSorted = List.filter (> x) xs
+                smallerSorted = quicksort (List.filter ((>) x) xs)
+                biggerSorted = quicksort (List.filter ((<=) x) xs)
             in  
                 smallerSorted ++ [x] ++ biggerSorted
 ```
@@ -285,7 +285,7 @@ Let's give it a small test run to see if it appears to behave correctly.
 ```elm
 toPrint = quicksort [10,2,5,3,1,6,7,4,2,3,4,8,9]
 [1,2,2,3,3,4,4,5,6,7,8,9,10]
-toPrint = quicksort (String.toList "the quick brown fox jumps over the lazy dog")
+toPrint = String.fromList (quicksort (String.toList "the quick brown fox jumps over the lazy dog"))
 "        abcdeeefghhijklmnoooopqrrsttuuvwxyz"
 ```
 
