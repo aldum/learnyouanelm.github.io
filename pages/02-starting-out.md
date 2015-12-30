@@ -38,7 +38,7 @@ To see different values, just change what is after
 
  To try our first arithmetic, your code should look like this:
 
- ```elm
+```elm
 import Graphics.Element exposing (show)
 
 toPrint =
