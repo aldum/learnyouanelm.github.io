@@ -79,9 +79,9 @@ toPrint = 50 * (100 - 4999)
 
 Pretty cool, huh? Yeah, I know it's not but bear with me.
 
-Boolean algebra is also pretty straightforward. As you probably know, &&
-means a boolean *and*, || means a boolean *or*. not negates a True or a
-False.
+Boolean algebra is also pretty straightforward. As you probably know, `&&`
+means a boolean *and*, `||` means a boolean *or*. `not` negates a `True` or a
+`False`.
 
 ```elm
 toPrint = True && False
@@ -111,7 +111,7 @@ toPrint = "hello" == "hello"
 True
 ```
 
-What about doing 5 + "llama" or 5 == True? Well, if we try the first
+What about doing `5 + "llama"` or `5 == True`? Well, if we try the first
 snippet, we get a nice error message!
 
     The right argument of (+) is causing a type mismatch.
@@ -125,20 +125,20 @@ snippet, we get a nice error message!
         String
 
 Long, but informative!
-What Elm is telling us here is that "llama" is not a number and
-so it doesn't know how to add it to 5. Even if it wasn't "llama" but
-"four" or "4", Elm still wouldn't consider it to be a number. +
-expects its left and right side to be numbers. If we tried to do True ==
-5, Elm would tell us that the types don't match. Whereas + works only
-on things that are considered numbers, == works on any two things that
+What Elm is telling us here is that `"llama"` is not a number and
+so it doesn't know how to add it to 5. Even if it wasn't `"llama"` but
+`"four"` or `"4"`, Elm still wouldn't consider it to be a number. `+`
+expects its left and right side to be numbers. If we tried to do `True ==
+5`, Elm would tell us that the types don't match. Whereas `+` works only
+on things that are considered numbers, `==` works on any two things that
 can be compared. But the catch is that they both have to be the same
 type of thing. You can't compare apples and oranges. We'll take a closer
-look at types a bit later. Note: you can do 5 + 4.0 because 5 is sneaky
-and can act like an integer or a floating-point number. 4.0 can't act
-like an integer, so 5 is the one that has to adapt.
+look at types a bit later. Note: you can do `5 + 4.0` because `5` is sneaky
+and can act like an integer or a floating-point number. `4.0` can't act
+like an integer, so `5` is the one that has to adapt.
 
 You may not have known it but we've been using functions now all along.
-For instance, \* is a function that takes two numbers and multiplies
+For instance, `*` is a function that takes two numbers and multiplies
 them. As you've seen, we call it by sandwiching it between them. This is
 what we call an *infix* function. Most functions that aren't used with
 numbers are *prefix* functions. Let's take a look at them.
@@ -160,9 +160,9 @@ toPrint = identity 8
 The `identity` function takes a value and returns that value.
 As you can see, we just separate the function
 name from the parameter with a space. Calling a function with several
-parameters is also simple. The functions min and max take two things
-that can be put in an order (like numbers!). min returns the one that's
-lesser and max returns the one that's greater. See for yourself:
+parameters is also simple. The functions `min` and `max` take two things
+that can be put in an order (like numbers!). `min` returns the one that's
+lesser and `max` returns the one that's greater. See for yourself:
 
 ```elm
 toPrint = min 9 10
@@ -179,15 +179,11 @@ What that means for us is that these two statements are equivalent.
 
 ```elm
 toPrint = identity 9 + max 5 4 + 1
-16
+15
 toPrint = (identity 9) + (max 5 4) + 1
-16
+15
 ```
 
-However, if we wanted to get the identity of the product of numbers 9
-and 10, we couldn't write identity 9 \* 10 because that would get the
-identity of 9, which would then be multiplied by 10. So 100. We'd have
-to write identity (9 \* 10) to get 91.
 
 If a function takes two parameters, we can also call it as an infix
 function by surrounding it with backticks. For instance, the `rem`
@@ -538,7 +534,7 @@ False
 ```
 
 Those were a few basic functions that operate on lists. We'll take a
-look at more list functions [later](modules#data-list)
+look at more list functions [later](modules#data-list).
 
 Texas ranges
 ------------
@@ -547,11 +543,11 @@ Texas ranges
 of all numbers between 1 and 20? Sure, we could just type them all out
 but obviously that's not a solution for gentlemen who demand excellence
 from their programming languages. Instead, we'll use ranges. Ranges are
-a way of making lists that sequences of numbers.
+a way of making lists that are sequences of numbers.
 
 To make a list containing all the natural numbers from 1 to 20, you just
-write [1..20]. That is the equivalent of writing
-[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20] and there's no
+write `[1..20]`. That is the equivalent of writing
+`[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]` and there's no
 difference between writing one or the other except that writing out long
 enumeration sequences manually is stupid.
 
@@ -583,15 +579,15 @@ Think about how we'd represent a two-dimensional vector in Elm. One
 way would be to use a list. That would kind of work. So what if we
 wanted to put a couple of vectors in a list to represent points of a
 shape on a two-dimensional plane? We could do something like
-[[1,2],[8,11],[4,5]]. The problem with that method is that we could also
-do stuff like [[1,2],[8,11,5],[4,5]], which Elm has no problem with
+`[[1,2],[8,11],[4,5]]`. The problem with that method is that we could also
+do stuff like `[[1,2],[8,11,5],[4,5]]`, which Elm has no problem with
 since it's still a list of lists with numbers but it kind of doesn't
 make sense. But a tuple of size two (also called a pair) is its own
 type, which means that a list can't have a couple of pairs in it and
 then a triple (a tuple of size three), so let's use that instead.
 Instead of surrounding the vectors with square brackets, we use
-parentheses: [(1,2),(8,11),(4,5)]. What if we tried to make a shape like
-[(1,2),(8,11,5),(4,5)]? Well, we'd get this error:
+parentheses: `[(1,2),(8,11),(4,5)]`. What if we tried to make a shape like
+`[(1,2),(8,11,5),(4,5)]`? Well, we'd get this error:
 
     The 2nd element of this list is an unexpected type of value.
     3| toPrint = [(1,2),(8,11,5),(4,5)]
@@ -607,9 +603,9 @@ parentheses: [(1,2),(8,11),(4,5)]. What if we tried to make a shape like
         (number)
 
 
-It's telling us_ that we tried to use a pair and a triple in the same
+It's telling us that we tried to use a pair and a triple in the same
 list, which is not supposed to happen. You also couldn't make a list
-like [(1,2),("One",2)] because the first element of the list is a pair
+like `[(1,2),("One",2)]` because the first element of the list is a pair
 of numbers and the second element is a pair consisting of a string and a
 number. Tuples can also be used to represent a wide variety of data. For
 instance, if we wanted to represent someone's name and age in Elm,
@@ -628,10 +624,9 @@ tuple. It doesn't really make much sense when you think about it. A
 singleton tuple would just be the value it contains and as such would
 have no benefit to us.
 
- Two useful
-functions that operate on pairs:
+Two useful functions that operate on pairs:
 
-fst takes a pair and returns its first component.
+`fst` takes a pair and returns its first component.
 
 ```elm
 toPrint = fst (8,11)
@@ -640,7 +635,7 @@ toPrint = fst ("Wow", False)
 "Wow"
 ```
 
-snd takes a pair and returns its second component. Surprise!
+`snd` takes a pair and returns its second component. Surprise!
 
 ```elm
 toPrint = snd (8,11)
