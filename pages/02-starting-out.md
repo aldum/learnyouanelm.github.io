@@ -79,9 +79,9 @@ toPrint = 50 * (100 - 4999)
 
 Pretty cool, huh? Yeah, I know it's not but bear with me.
 
-Boolean algebra is also pretty straightforward. As you probably know, &&
-means a boolean *and*, || means a boolean *or*. not negates a True or a
-False.
+Boolean algebra is also pretty straightforward. As you probably know, `&&`
+means a boolean *and*, `||` means a boolean *or*. `not` negates a `True` or a
+`False`.
 
 ```elm
 toPrint = True && False
@@ -111,7 +111,7 @@ toPrint = "hello" == "hello"
 True
 ```
 
-What about doing 5 + "llama" or 5 == True? Well, if we try the first
+What about doing `5 + "llama"` or `5 == True`? Well, if we try the first
 snippet, we get a nice error message!
 
     The right argument of (+) is causing a type mismatch.
@@ -125,20 +125,20 @@ snippet, we get a nice error message!
         String
 
 Long, but informative!
-What Elm is telling us here is that "llama" is not a number and
-so it doesn't know how to add it to 5. Even if it wasn't "llama" but
-"four" or "4", Elm still wouldn't consider it to be a number. +
-expects its left and right side to be numbers. If we tried to do True ==
-5, Elm would tell us that the types don't match. Whereas + works only
-on things that are considered numbers, == works on any two things that
+What Elm is telling us here is that `"llama"` is not a number and
+so it doesn't know how to add it to 5. Even if it wasn't `"llama"` but
+`"four"` or `"4"`, Elm still wouldn't consider it to be a number. `+`
+expects its left and right side to be numbers. If we tried to do `True ==
+5`, Elm would tell us that the types don't match. Whereas `+` works only
+on things that are considered numbers, `==` works on any two things that
 can be compared. But the catch is that they both have to be the same
 type of thing. You can't compare apples and oranges. We'll take a closer
-look at types a bit later. Note: you can do 5 + 4.0 because 5 is sneaky
-and can act like an integer or a floating-point number. 4.0 can't act
-like an integer, so 5 is the one that has to adapt.
+look at types a bit later. Note: you can do `5 + 4.0` because `5` is sneaky
+and can act like an integer or a floating-point number. `4.0` can't act
+like an integer, so `5` is the one that has to adapt.
 
 You may not have known it but we've been using functions now all along.
-For instance, \* is a function that takes two numbers and multiplies
+For instance, `*` is a function that takes two numbers and multiplies
 them. As you've seen, we call it by sandwiching it between them. This is
 what we call an *infix* function. Most functions that aren't used with
 numbers are *prefix* functions. Let's take a look at them.
@@ -160,9 +160,9 @@ toPrint = identity 8
 The `identity` function takes a value and returns that value.
 As you can see, we just separate the function
 name from the parameter with a space. Calling a function with several
-parameters is also simple. The functions min and max take two things
-that can be put in an order (like numbers!). min returns the one that's
-lesser and max returns the one that's greater. See for yourself:
+parameters is also simple. The functions `min` and `max` take two things
+that can be put in an order (like numbers!). `min` returns the one that's
+lesser and `max` returns the one that's greater. See for yourself:
 
 ```elm
 toPrint = min 9 10
@@ -179,15 +179,11 @@ What that means for us is that these two statements are equivalent.
 
 ```elm
 toPrint = identity 9 + max 5 4 + 1
-16
+15
 toPrint = (identity 9) + (max 5 4) + 1
-16
+15
 ```
 
-However, if we wanted to get the identity of the product of numbers 9
-and 10, we couldn't write identity 9 \* 10 because that would get the
-identity of 9, which would then be multiplied by 10. So 100. We'd have
-to write identity (9 \* 10) to get 91.
 
 If a function takes two parameters, we can also call it as an infix
 function by surrounding it with backticks. For instance, the `rem`
@@ -195,8 +191,8 @@ function takes two integers and does gives the remainder when you
 divide the first by the second.
 Doing `rem 92 10` results in a 2. But when we call it like that, there may
 be some confusion as to which number is doing the division and which one
-is being divided. So we can call it as an infix function by doing 92
-\` div \` 10 and suddenly it's much clearer.
+is being divided. So we can call it as an infix function by doing ``92
+`rem` 10`` and suddenly it's much clearer.
 
 ```elm
 toPrint = 92 `rem` 10
@@ -205,14 +201,14 @@ toPrint = 92 `rem` 10
 
 Lots of people who come from imperative languages tend to stick to the
 notion that parentheses should denote function application. For example,
-in C, you use parentheses to call functions like foo(), bar(1) or baz(3,
-"haha"). Like we said, spaces are used for function application in
+in C, you use parentheses to call functions like `foo()`, `bar(1)` or `baz(3,
+"haha")`. Like we said, spaces are used for function application in
 Elm. So those functions in Elm would be `foo`, `bar 1` and `baz 3
-"haha" `. So if you see something like `bar (bar 3)`, it doesn't mean that
-bar is called with bar and 3 as parameters. It means that we first call
-the function bar with 3 as the parameter to get some number and then we
-call bar again with that number. In C, that would be something like
-bar(bar(3)).
+"haha"`. So if you see something like `bar (bar 3)`, it doesn't mean that
+`bar` is called with `bar` and `3` as parameters. It means that we first call
+the function `bar` with `3` as the parameter to get some number and then we
+call `bar` again with that number. In C, that would be something like
+`bar(bar(3))`.
 
 Baby's first functions
 ----------------------
@@ -239,7 +235,7 @@ toPrint = doubleMe 8.3
 16.6
 ```
 
-Because + works on integers as well as on floating-point numbers
+Because `+` works on integers as well as on floating-point numbers
 (anything that can be considered a number, really), our function also
 works on any number. Let's make a function that takes two numbers and
 multiplies each by two and then adds them together.
@@ -261,7 +257,7 @@ toPrint = doubleUs 28 88 + doubleMe 123
 ```
 
 As expected, you can call your own functions from other functions that
-you made. With that in mind, we could redefine doubleUs like this:
+you made. With that in mind, we could redefine `doubleUs` like this:
 
 ```elm
 doubleUs x y = doubleMe x + doubleMe y
@@ -272,11 +268,11 @@ throughout Elm. Making basic functions that are obviously correct
 and then combining them into more complex functions. This way you also
 avoid repetition. What if some mathematicians figured out that 2 is
 actually 3 and you had to change your program? You could just redefine
-doubleMe to be `x + x + x` and since doubleUs calls doubleMe, it would
+`doubleMe` to be `x + x + x` and since `doubleUs` calls `doubleMe`, it would
 automatically work in this strange new world where 2 is 3.
 
 Functions in Elm don't have to be in any particular order, so it
-doesn't matter if you define doubleMe first and then doubleUs or if you
+doesn't matter if you define `doubleMe` first and then `doubleUs` or if you
 do it the other way around.
 
 Now we're going to make a function that multiplies a number by 2 but
@@ -284,9 +280,7 @@ only if that number is smaller than or equal to 100 because numbers
 bigger than 100 are big enough as it is!
 
 ```elm
-doubleSmallNumber x = if x > 100
-                        then x
-                        else x*2
+doubleSmallNumber x = if x > 100 then x else x*2
 ```
 
 ![this is you](img/baby.png)
@@ -300,9 +294,9 @@ Elm every expression and function must return something. We could
 have also written that if statement in one line but I find this way more
 readable. Another thing about the if statement in Elm is that it is
 an *expression*. An expression is basically a piece of code that returns
-a value. 5 is an expression because it returns 5, 4 + 8 is an
-expression, x + y is an expression because it returns the sum of x and
-y. Because the else is mandatory, an if statement will always return
+a value. `5` is an expression because it returns `5`, `4 + 8` is an
+expression, `x + y` is an expression because it returns the sum of `x` and
+`y`. Because the else is mandatory, an if statement will always return
 something and that's why it's an expression. If we wanted to add one to
 every number that's produced in our previous function, we could have
 written its body like this.
@@ -311,7 +305,7 @@ written its body like this.
 doubleSmallNumber' x = (if x > 100 then x else x*2) + 1
 ```
 
-Had we omitted the parentheses, it would have added one only if x wasn't
+Had we omitted the parentheses, it would have added one only if `x` wasn't
 greater than 100. Note the ' at the end of the function name. That
 apostrophe doesn't have any special meaning in Elm's syntax. It's a
 valid character to use in a function name. We usually use ' to
@@ -370,10 +364,10 @@ toPrint = [1,2,3,4] ++ [9,10,11,12]
 [1,2,3,4,9,10,11,12]
 ```
 
-Watch out when repeatedly using the ++ operator on long strings. When
+Watch out when repeatedly using the `++` operator on long strings. When
 you put together two lists (even if you append a singleton list to a
-list, for instance: [1,2,3] ++ [4]), internally, Elm has to walk
-through the whole list on the left side of ++. That's not a problem when
+list, for instance: `[1,2,3] ++ [4]`), internally, Elm has to walk
+through the whole list on the left side of `++`. That's not a problem when
 dealing with lists that aren't too big. But putting something at the end
 of a list that's fifty million entries long is going to take a while.
 However, putting something at the beginning of a list using the `::`
@@ -411,19 +405,19 @@ operate on lists.
 
 #### TODO section on Maybe?
 
-head takes a list and returns its head. The head of a list is basically
+`head` takes a list and returns its head. The head of a list is basically
 its first element.
 
 ```elm
-toPrint = head [5,4,3,2,1]
+toPrint = List.head [5,4,3,2,1]
 Just 5
 ```
 
-tail takes a list and returns its tail. In other words, it chops off a
+`tail` takes a list and returns its tail. In other words, it chops off a
 list's head.
 
 ```elm
-toPrint = tail [5,4,3,2,1]
+toPrint = List.tail [5,4,3,2,1]
 Just [4,3,2,1]
 ```
 
@@ -431,53 +425,53 @@ Just [4,3,2,1]
 But what happens if we try to get the head of an empty list?
 
 ```elm
-toPrint = head []
+toPrint = List.head []
 Nothing
 ```
 
 What is `Nothing`? And why did `head` return `Just 5` before?
 We'll talk about that a bit more later, but for now,
-think of Nothing as a way to indicate when there's no correct value to return,
-and Just as a way to show that we could return a value in a place
-where Nothing could have also been returned.
+think of `Nothing` as a way to indicate when there's no correct value to return,
+and `Just` as a way to show that we could return a value in a place
+where `Nothing` could have also been returned.
 
 
-length takes a list and returns its length, obviously.
+`length` takes a list and returns its length, obviously.
 
 ```elm
-toPrint = length [5,4,3,2,1]
+toPrint = List.length [5,4,3,2,1]
 5
 ```
 
-isEmpty checks if a list is empty. If it is, it returns True, otherwise it
-returns False. Use this function instead of xs == [] (if you have a list
-called xs)
+`isEmpty` checks if a list is empty. If it is, it returns `True`, otherwise it
+returns `False`. Use this function instead of `xs == []` (if you have a list
+called `xs`).
 
 ```elm
-toPrint = isEmpty [1,2,3]
+toPrint = List.isEmpty [1,2,3]
 False
-toPrint = isEmpty []
+toPrint = List.isEmpty []
 True
 ```
 
-reverse reverses a list.
+`reverse` reverses a list.
 
 ```elm
-toPrint = reverse [5,4,3,2,1]
+toPrint = List.reverse [5,4,3,2,1]
 [1,2,3,4,5]
 ```
 
-take takes number and a list. It extracts that many elements from the
+`take` takes a number and a list. It extracts that many elements from the
 beginning of the list. Watch.
 
 ```elm
-toPrint = take 3 [5,4,3,2,1]
+toPrint = List.take 3 [5,4,3,2,1]
 [5,4,3]
-toPrint = take 1 [3,9,3]
+toPrint = List.take 1 [3,9,3]
 [3]
-toPrint = take 5 [1,2]
+toPrint = List.take 5 [1,2]
 [1,2]
-toPrint = take 0 [6,6,6]
+toPrint = List.take 0 [6,6,6]
 []
 ```
 
@@ -485,60 +479,60 @@ See how if we try to take more elements than there are in the list, it
 just returns the list. If we try to take 0 elements, we get an empty
 list.
 
-drop works in a similar way, only it drops the number of elements from
+`drop` works in a similar way, only it drops the number of elements from
 the beginning of a list.
 
 ```elm
-toPrint = drop 3 [8,4,2,1,5,6]
+toPrint = List.drop 3 [8,4,2,1,5,6]
 [1,5,6]
-toPrint = drop 0 [1,2,3,4]
+toPrint = List.drop 0 [1,2,3,4]
 [1,2,3,4]
-toPrint = drop 100 [1,2,3,4]
+toPrint = List.drop 100 [1,2,3,4]
 []
 ```
 
-maximum takes a list of stuff that can be put in some kind of order and
+`maximum` takes a list of stuff that can be put in some kind of order and
 returns the biggest element.
 
-minimum returns the smallest.
+`minimum` returns the smallest.
 
 ```elm
-toPrint = minimum [8,4,2,1,5,6]
+toPrint = List.minimum [8,4,2,1,5,6]
 Just 1
-toPrint = maximum [1,9,2,3,4]
+toPrint = List.maximum [1,9,2,3,4]
 Just 9
-toPrint = maximum []
+toPrint = List.maximum []
 Nothing
 ```
 
 What is the largest element of an empty list? There's no value we could
 return that would make sense, so we use `Just` and `Nothing` here.
 
-sum takes a list of numbers and returns their sum.
+`sum` takes a list of numbers and returns their sum.
 
-product takes a list of numbers and returns their product.
+`product` takes a list of numbers and returns their product.
 
 ```elm
-toPrint = sum [5,2,1,6,3,2,5,7]
+toPrint = List.sum [5,2,1,6,3,2,5,7]
 31
-toPrint = product [6,2,1,2]
+toPrint = List.product [6,2,1,2]
 24
-toPrint = product [1,2,5,6,7,9,2,0]
+toPrint = List.product [1,2,5,6,7,9,2,0]
 0
 ```
 
-member takes a thing and a list of things and tells us if that thing is a
+`member` takes a thing and a list of things and tells us if that thing is a
 member of the list.
 
 ```elm
-toPrint = member 4 [3,4,5,6]
+toPrint = List.member 4 [3,4,5,6]
 True
-toPrint = member 10 [3,4,5,6]
+toPrint = List.member 10 [3,4,5,6]
 False
 ```
 
 Those were a few basic functions that operate on lists. We'll take a
-look at more list functions [later](modules#data-list)
+look at more list functions [later](modules#data-list).
 
 Texas ranges
 ------------
@@ -547,11 +541,11 @@ Texas ranges
 of all numbers between 1 and 20? Sure, we could just type them all out
 but obviously that's not a solution for gentlemen who demand excellence
 from their programming languages. Instead, we'll use ranges. Ranges are
-a way of making lists that sequences of numbers.
+a way of making lists that are sequences of numbers.
 
 To make a list containing all the natural numbers from 1 to 20, you just
-write [1..20]. That is the equivalent of writing
-[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20] and there's no
+write `[1..20]`. That is the equivalent of writing
+`[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]` and there's no
 difference between writing one or the other except that writing out long
 enumeration sequences manually is stupid.
 
@@ -583,15 +577,15 @@ Think about how we'd represent a two-dimensional vector in Elm. One
 way would be to use a list. That would kind of work. So what if we
 wanted to put a couple of vectors in a list to represent points of a
 shape on a two-dimensional plane? We could do something like
-[[1,2],[8,11],[4,5]]. The problem with that method is that we could also
-do stuff like [[1,2],[8,11,5],[4,5]], which Elm has no problem with
+`[[1,2],[8,11],[4,5]]`. The problem with that method is that we could also
+do stuff like `[[1,2],[8,11,5],[4,5]]`, which Elm has no problem with
 since it's still a list of lists with numbers but it kind of doesn't
 make sense. But a tuple of size two (also called a pair) is its own
 type, which means that a list can't have a couple of pairs in it and
 then a triple (a tuple of size three), so let's use that instead.
 Instead of surrounding the vectors with square brackets, we use
-parentheses: [(1,2),(8,11),(4,5)]. What if we tried to make a shape like
-[(1,2),(8,11,5),(4,5)]? Well, we'd get this error:
+parentheses: `[(1,2),(8,11),(4,5)]`. What if we tried to make a shape like
+`[(1,2),(8,11,5),(4,5)]`? Well, we'd get this error:
 
     The 2nd element of this list is an unexpected type of value.
     3| toPrint = [(1,2),(8,11,5),(4,5)]
@@ -607,13 +601,13 @@ parentheses: [(1,2),(8,11),(4,5)]. What if we tried to make a shape like
         (number)
 
 
-It's telling us_ that we tried to use a pair and a triple in the same
+It's telling us that we tried to use a pair and a triple in the same
 list, which is not supposed to happen. You also couldn't make a list
-like [(1,2),("One",2)] because the first element of the list is a pair
+like `[(1,2),("One",2)]` because the first element of the list is a pair
 of numbers and the second element is a pair consisting of a string and a
 number. Tuples can also be used to represent a wide variety of data. For
 instance, if we wanted to represent someone's name and age in Elm,
-we could use a triple: ("Christopher", "Walken", 55). As seen in this
+we could use a triple: `("Christopher", "Walken", 55)`. As seen in this
 example, tuples can also contain lists or strings.
 
 Use tuples when you know in advance how many components some piece of
@@ -628,10 +622,9 @@ tuple. It doesn't really make much sense when you think about it. A
 singleton tuple would just be the value it contains and as such would
 have no benefit to us.
 
- Two useful
-functions that operate on pairs:
+Two useful functions that operate on pairs:
 
-fst takes a pair and returns its first component.
+`fst` takes a pair and returns its first component.
 
 ```elm
 toPrint = fst (8,11)
@@ -640,7 +633,7 @@ toPrint = fst ("Wow", False)
 "Wow"
 ```
 
-snd takes a pair and returns its second component. Surprise!
+`snd` takes a pair and returns its second component. Surprise!
 
 ```elm
 toPrint = snd (8,11)
