@@ -442,42 +442,42 @@ and Just as a way to show that we could return a value in a place
 where Nothing could have also been returned.
 
 
-length takes a list and returns its length, obviously.
+`length` takes a list and returns its length, obviously.
 
 ```elm
-toPrint = length [5,4,3,2,1]
+toPrint = List.length [5,4,3,2,1]
 5
 ```
 
-isEmpty checks if a list is empty. If it is, it returns True, otherwise it
+`isEmpty` checks if a list is empty. If it is, it returns True, otherwise it
 returns False. Use this function instead of xs == [] (if you have a list
 called xs)
 
 ```elm
-toPrint = isEmpty [1,2,3]
+toPrint = List.isEmpty [1,2,3]
 False
-toPrint = isEmpty []
+toPrint = List.isEmpty []
 True
 ```
 
-reverse reverses a list.
+`reverse` reverses a list.
 
 ```elm
-toPrint = reverse [5,4,3,2,1]
+toPrint = List.reverse [5,4,3,2,1]
 [1,2,3,4,5]
 ```
 
-take takes number and a list. It extracts that many elements from the
+`take` takes a number and a list. It extracts that many elements from the
 beginning of the list. Watch.
 
 ```elm
-toPrint = take 3 [5,4,3,2,1]
+toPrint = List.take 3 [5,4,3,2,1]
 [5,4,3]
-toPrint = take 1 [3,9,3]
+toPrint = List.take 1 [3,9,3]
 [3]
-toPrint = take 5 [1,2]
+toPrint = List.take 5 [1,2]
 [1,2]
-toPrint = take 0 [6,6,6]
+toPrint = List.take 0 [6,6,6]
 []
 ```
 
@@ -485,55 +485,55 @@ See how if we try to take more elements than there are in the list, it
 just returns the list. If we try to take 0 elements, we get an empty
 list.
 
-drop works in a similar way, only it drops the number of elements from
+`drop` works in a similar way, only it drops the number of elements from
 the beginning of a list.
 
 ```elm
-toPrint = drop 3 [8,4,2,1,5,6]
+toPrint = List.drop 3 [8,4,2,1,5,6]
 [1,5,6]
-toPrint = drop 0 [1,2,3,4]
+toPrint = List.drop 0 [1,2,3,4]
 [1,2,3,4]
-toPrint = drop 100 [1,2,3,4]
+toPrint = List.drop 100 [1,2,3,4]
 []
 ```
 
-maximum takes a list of stuff that can be put in some kind of order and
+`maximum` takes a list of stuff that can be put in some kind of order and
 returns the biggest element.
 
-minimum returns the smallest.
+`minimum` returns the smallest.
 
 ```elm
-toPrint = minimum [8,4,2,1,5,6]
+toPrint = List.minimum [8,4,2,1,5,6]
 Just 1
-toPrint = maximum [1,9,2,3,4]
+toPrint = List.maximum [1,9,2,3,4]
 Just 9
-toPrint = maximum []
+toPrint = List.maximum []
 Nothing
 ```
 
 What is the largest element of an empty list? There's no value we could
 return that would make sense, so we use `Just` and `Nothing` here.
 
-sum takes a list of numbers and returns their sum.
+`sum` takes a list of numbers and returns their sum.
 
-product takes a list of numbers and returns their product.
+`product` takes a list of numbers and returns their product.
 
 ```elm
-toPrint = sum [5,2,1,6,3,2,5,7]
+toPrint = List.sum [5,2,1,6,3,2,5,7]
 31
-toPrint = product [6,2,1,2]
+toPrint = List.product [6,2,1,2]
 24
-toPrint = product [1,2,5,6,7,9,2,0]
+toPrint = List.product [1,2,5,6,7,9,2,0]
 0
 ```
 
-member takes a thing and a list of things and tells us if that thing is a
+`member` takes a thing and a list of things and tells us if that thing is a
 member of the list.
 
 ```elm
-toPrint = member 4 [3,4,5,6]
+toPrint = List.member 4 [3,4,5,6]
 True
-toPrint = member 10 [3,4,5,6]
+toPrint = List.member 10 [3,4,5,6]
 False
 ```
 
