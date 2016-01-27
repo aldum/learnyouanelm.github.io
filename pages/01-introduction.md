@@ -11,14 +11,14 @@ About this tutorial
 
 Welcome to *Learn You an Elm*! If you're reading this,
 chances are you want to learn Elm. Well, you've come to the right
-place, but let's talk about this tutorial a bit first.
+place, but first let's talk about this tutorial a bit.
 
 I decided to write this because *Learn You A Haskell* is now
 a common resource for learning functional programming. But,
 Elm is developing into its own language, and has some significant
 technical and philosophical differences from Haskell.
 So, instead of throwing away the great resource that is LYAH, we've
-dediced to adapt it.
+decided to adapt it.
 
 ![bird](img/bird.png)
 
@@ -87,7 +87,7 @@ equivalents. And shorter programs are easier to maintain than longer
 ones and have less bugs.
 
 Elm was made by Evan Czaplicki, who continues to develop it with
-the support of [Prezi, Inc.](https://prezi.com/).
+the support of [NoRedInk](https://www.noredink.com/).
 It is currently used in production by several companies,
 including [CircuitHub](https://www.circuithub.com/) and  
 [NoRedInk](http://tech.noredink.com/).
@@ -100,13 +100,12 @@ using either [elm-lang.org/try](http://elm-lang.org/try),
 or [share-elm](http://share-elm.com) (if you want to save your code).
 
 When we get to more complicated examples, you'll need a text-editor,
-such as [Atom](https://atom.io/), [Sublime](http://www.sublimetext.com/), 
-or [LightTable](http://lighttable.com/),
+such as [Atom](https://atom.io/), [Sublime](http://www.sublimetext.com/), [LightTable](http://lighttable.com/),
 or any other editor of your choice.
 There are lots of [Elm-specific plugins](http://elm-lang.org/install) for editors
 that you can download.
 
 You will also need a copy of [The Elm Platform](http://elm-lang.org/install).
 If you are on Mac or Windows, use the installers at the above link.
-If you are on Linux, you can  install using the [NPM Package](https://www.npmjs.com/package/elm)
+If you are on Linux, you caninstall using the [NPM Package](https://www.npmjs.com/package/elm)
 Or, you can [build it from source](https://github.com/elm-lang/elm-platform).
