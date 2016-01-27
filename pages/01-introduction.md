@@ -107,5 +107,5 @@ that you can download.
 
 You will also need a copy of [The Elm Platform](http://elm-lang.org/install).
 If you are on Mac or Windows, use the installers at the above link.
-If you are on Linux, you caninstall using the [NPM Package](https://www.npmjs.com/package/elm)
+If you are on Linux, you can install using the [NPM Package](https://www.npmjs.com/package/elm)
 Or, you can [build it from source](https://github.com/elm-lang/elm-platform).
