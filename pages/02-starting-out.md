@@ -411,19 +411,19 @@ operate on lists.
 
 #### TODO section on Maybe?
 
-head takes a list and returns its head. The head of a list is basically
+`head` takes a list and returns its head. The head of a list is basically
 its first element.
 
 ```elm
-toPrint = head [5,4,3,2,1]
+toPrint = List.head [5,4,3,2,1]
 Just 5
 ```
 
-tail takes a list and returns its tail. In other words, it chops off a
+`tail` takes a list and returns its tail. In other words, it chops off a
 list's head.
 
 ```elm
-toPrint = tail [5,4,3,2,1]
+toPrint = List.tail [5,4,3,2,1]
 Just [4,3,2,1]
 ```
 
@@ -431,7 +431,7 @@ Just [4,3,2,1]
 But what happens if we try to get the head of an empty list?
 
 ```elm
-toPrint = head []
+toPrint = List.head []
 Nothing
 ```
 
