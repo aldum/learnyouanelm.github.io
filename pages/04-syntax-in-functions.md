@@ -42,11 +42,11 @@ lucky x =
         _ -> "Sorry, you're out of luck, pal!"
 ```
 
-When you call lucky, the patterns will be checked from top to bottom and
+When you call `lucky`, the patterns will be checked from top to bottom and
 when it conforms to a pattern, the corresponding function body will be
 used. The only way a number can conform to the first pattern here is if
 it is 7. If it's not, it falls through to the second pattern, which
-matches anything and discards it. The _ is a wildcard that's used when we
+matches anything and discards it. The `_` is a wildcard that's used when we
 don't care what the specific value is. If you do care what the value is,
 you can write any variable name in this place and the value will be bound
 to that variable, like this:
@@ -61,7 +61,7 @@ lucky x =
 
 This function could have also been implemented by using an if statement. 
 But what if we wanted a function that says the numbers from 1 to 5 and 
-says "Not between 1 and 5" for any other number? Without pattern 
+says `"Not between 1 and 5"` for any other number? Without pattern 
 matching, we'd have to make a pretty convoluted if then else tree. 
 However, with it:
 
@@ -78,7 +78,7 @@ sayMe x =
 ```
 
 Note that if we moved the last pattern (the catch-all one) to the top,
-it would always say "Not between 1 and 5", because it would catch all
+it would always say `"Not between 1 and 5"`, because it would catch all
 the numbers and they wouldn't have a chance to fall through and be
 checked for any other patterns.
 
@@ -100,12 +100,12 @@ factorial n =
 This is the first time we've defined a function recursively. Recursion
 is important in functional languages and we'll take a closer look at it later. But in
 a nutshell, this is what happens if we try to get the factorial of, say,
-3. It tries to compute 3 \* factorial 2. The factorial of 2 is 2 \*
-factorial 1, so for now we have 3 \* (2 \* factorial 1). factorial 1 is
-1 \* factorial 0, so we have 3 \* (2 \* (1 \* factorial 0)). Now here
+3. It tries to compute `3 * factorial 2`. The factorial of 2 is `2 *
+factorial 1`, so for now we have `3 * (2 * factorial 1)`. factorial 1 is
+`1 * factorial 0`, so we have `3 * (2 * (1 * factorial 0))`. Now here
 comes the trick — we've defined the factorial of 0 to be just 1 and
 because it encounters that pattern before the catch-all one, it just
-returns 1. So the final result is equivalent to 3 \* (2 \* (1 \* 1)).
+returns 1. So the final result is equivalent to `3 * (2 * (1 * 1))`.
 Had we written the second pattern on top of the first one, it would
 catch all numbers, including 0 and our calculation would never
 terminate. That's why order is important when specifying patterns and
@@ -124,7 +124,7 @@ charName c =
 ```
 
 the compiler will notice that we haven't accounted for all possibilites,
-either by specifying a pattern for every possible value of c, or by
+either by specifying a pattern for every possible value of `c`, or by
 including a wildcard that matches on every value. It will say:
 
 ```
@@ -157,7 +157,7 @@ case expression of
     ...
 ```
 
-expression is matched against the patterns. The pattern matching action
+`expression` is matched against the patterns. The pattern matching action
 is the same as expected: the first pattern that matches the expression
 is used. If it falls through the whole case expression and no suitable
 pattern is found, a compilation error occurs.
@@ -185,11 +185,11 @@ addVectors (x1, y1) (x2, y2) =
 ```
 
 There we go! Much better. Note that this is already a catch-all pattern.
-The type of addVectors (in both cases) is addVectors : (Float, Float) -\> 
-(Float, Float) - \> (Float, Float), so we are guaranteed to get two pairs as
+The type of `addVectors` (in both cases) is `addVectors : (Float, Float) -> 
+(Float, Float) - > (Float, Float)`, so we are guaranteed to get two pairs as
 parameters.
 
-fst and snd extract the components of pairs. But what about triples?
+`fst` and `snd` extract the components of pairs. But what about triples?
 Well, there are no provided functions that do that but we can make our
 own.
 
@@ -204,27 +204,27 @@ third : (a, b, c) -> c
 third (_, _, z) = z
 ```
 
-As a reminder, the \_ means that we really don't care what that part is, 
-so we just write a \_.
+As a reminder, the `_` means that we really don't care what that part is, 
+so we just write a `_`.
 
 Lists themselves can also be used in pattern matching. You can match
-with the empty list [] or any pattern that involves :: and the empty
-list. But since [1,2,3] is just syntactic sugar for 1::2::3::[], you can
-also use the former pattern. A pattern like x::xs will bind the head of
-the list to x and the rest of it to xs, even if there's only one element
-so xs ends up being an empty list.
+with the empty list `[]` or any pattern that involves `::` and the empty
+list. But since `[1,2,3]` is just syntactic sugar for `1::2::3::[]`, you can
+also use the former pattern. A pattern like `x::xs` will bind the head of
+the list to `x` and the rest of it to `xs`, even if there's only one element
+so `xs` ends up being an empty list.
 
-*Note*: The x::xs pattern is used a lot, especially with recursive
-functions. But patterns that have :: in them only match against lists of
+*Note*: The `x::xs` pattern is used a lot, especially with recursive
+functions. But patterns that have `::` in them only match against lists of
 length 1 or more.
 
 If you want to bind, say, the first three elements to variables and the
 rest of the list to another variable, you can use something like
-x::y::z::zs. It will only match against lists that have three elements or
+`x::y::z::zs`. It will only match against lists that have three elements or
 more.
 
 Now that we know how to pattern match against list, let's make our own
-implementation of the List.member function, which checks if a value
+implementation of the `List.member` function, which checks if a value
 is present in a list, using 
 
 ```elm
@@ -249,7 +249,7 @@ False
 ```
 
 Nice! Notice that if you want to bind to several variables (even if one
-of them is just \_ and doesn't actually bind at all), we have to
+of them is just `_` and doesn't actually bind at all), we have to
 surround them in parentheses. Also notice the if then else expression we
 used. It's very similar to if statements in other languages, except it's
 an expression instead of a statement. That means it evaluates to a specific
@@ -270,14 +270,14 @@ tell list =
 
 This function is safe because it takes care of the empty list, a
 singleton list, a list with two elements and a list with more than two
-elements. Note that (x::[]) and (x::y::[]) could be rewriten as [x] and
-[x,y] (because its syntatic sugar, we don't need the parentheses). We
-can't rewrite (x::y::\_) with square brackets because it matches any list
+elements. Note that `(x::[])` and `(x::y::[])` could be rewriten as `[x]` and
+`[x,y]` (because its syntatic sugar, we don't need the parentheses). We
+can't rewrite `(x::y::_)` with square brackets because it matches any list
 of length 2 or more.
 
 This type of function construction is very common in Elm. Let's get some
 more practice by using pattern matching and a little recursion to implement
-our own List.length function:
+our own `List.length` function:
 
 ```elm
 length' : List a -> Int
@@ -291,21 +291,21 @@ This is similar to the factorial and member functions we wrote earlier. First we
 defined the result of a known input — the empty list. This is also known
 as the edge condition. Then in the second pattern we take the list apart
 by splitting it into a head and a tail. We say that the length is equal
-to 1 plus the length of the tail. We use \_ to match the head because we
+to 1 plus the length of the tail. We use `_` to match the head because we
 don't actually care what it is. Also note that we've taken care of all
 possible patterns of a list. The first pattern matches an empty list and
 the second one matches anything that isn't an empty list.
 
-Let's see what happens if we call length' on ['h','a','m']. First, it will check
+Let's see what happens if we call `length'` on `['h','a','m']`. First, it will check
 if it's an empty list. Because it isn't, it falls through to the second
 pattern. It matches on the second pattern and there it says that the
-length is 1 + length' ['a','m'], because we broke it into a head and a tail
-and discarded the head. O-kay. The length' of ['a','m'] is, similarly, 1 +
-length' ['m']. So right now we have 1 + (1 + length' ['m']). length' ['m'] is
-1 + length' []. And we've defined length' [] to be 0. So in the end we have 
-1 + (1 + (1 + 0)).
+length is `1 + length' ['a','m']`, because we broke it into a head and a tail
+and discarded the head. O-kay. The `length'` of `['a','m']` is, similarly, `1 +
+length' ['m']`. So right now we have `1 + (1 + length' ['m'])`. `length' ['m'] is
+1 + length' []`. And we've defined `length' []` to be `0`. So in the end we have 
+`1 + (1 + (1 + 0))`.
 
-Let's implement List.sum. We know that the sum of an empty list is 0. We
+Let's implement `List.sum`. We know that the sum of an empty list is 0. We
 write that down as a pattern. And we also know that the sum of a list is
 the head plus the sum of the rest of the list. So if we write that down,
 we get:
@@ -318,10 +318,10 @@ sum' list =
         (x::xs) -> x + sum' xs
 ```
 
-One more thing — you can't use ++ in pattern matches. If you tried to
-pattern match against (xs ++ ys), what would be in the first and what
+One more thing — you can't use `++` in pattern matches. If you tried to
+pattern match against `(xs ++ ys)`, what would be in the first and what
 would be in the second list? It doesn't make much sense. It would make
-sense to match stuff against (xs ++ [x,y,z]) or just (xs ++ [x]), but
+sense to match stuff against `(xs ++ [x,y,z])` or just `(xs ++ [x])`, but
 because of the nature of lists, you can't do that.
 
 *Note:* Not only can we call functions as infix with backticks, we can
