@@ -101,7 +101,7 @@ This is the first time we've defined a function recursively. Recursion
 is important in functional languages and we'll take a closer look at it later. But in
 a nutshell, this is what happens if we try to get the factorial of, say,
 3. It tries to compute `3 * factorial 2`. The factorial of 2 is `2 *
-factorial 1`, so for now we have `3 * (2 * factorial 1)`. factorial 1 is
+factorial 1`, so for now we have `3 * (2 * factorial 1)`. `factorial 1` is
 `1 * factorial 0`, so we have `3 * (2 * (1 * factorial 0))`. Now here
 comes the trick — we've defined the factorial of 0 to be just 1 and
 because it encounters that pattern before the catch-all one, it just
@@ -123,7 +123,7 @@ charName c =
         'c' -> "Cecil"
 ```
 
-the compiler will notice that we haven't accounted for all possibilites,
+The compiler will notice that we haven't accounted for all possibilites,
 either by specifying a pattern for every possible value of `c`, or by
 including a wildcard that matches on every value. It will say:
 
@@ -350,7 +350,7 @@ cylinder r h =
 
 ![let it be](img/letitbe.png)
 
-The form is let \<bindings\> in \<expression\>. The names that you
+The form is `let <bindings> in <expression>`. The names that you
 define in the *let* part are accessible to the expression after the *in*
 part. Notice that the names are also aligned in a single column.
 
