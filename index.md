@@ -39,6 +39,8 @@ TODO
 * Describe `String` vs `List Char`
 * Descrive Records as an extension of tuples
 
+[GitHub issues](https://github.com/learnyouanelm/learnyouanelm.github.io/issues)
+
 License
 -------
 
