@@ -218,6 +218,10 @@ so xs ends up being an empty list.
 functions. But patterns that have :: in them only match against lists of
 length 1 or more.
 
+*Note*: xs is not some special "pattern matching" variable. It's just like 
+any other variable. x::y would bind the head of the list to x and the rest of
+it to y. The s is just used by convention.
+
 If you want to bind, say, the first three elements to variables and the
 rest of the list to another variable, you can use something like
 x::y::z::zs. It will only match against lists that have three elements or
