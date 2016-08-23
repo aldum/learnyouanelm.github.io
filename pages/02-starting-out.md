@@ -23,13 +23,12 @@ We'll use this to get a feel for Elm's syntax, and to see the result of some
 basic computations.
 
 ```elm
-import Graphics.Element exposing (show)
-
-toPrint =
-  0
+import Html
 
 main =
-  show toPrint
+  Html.text (toString toPrint)
+  
+toPrint = 0
 ```
 
 Congratulations, you're coding in Elm.
@@ -39,13 +38,13 @@ To see different values, just change what is after
  To try our first arithmetic, your code should look like this:
 
 ```elm
-import Graphics.Element exposing (show)
-
-toPrint =
-  2 + 15
+import Html
 
 main =
-  show toPrint
+  Html.text (toString toPrint)
+  
+toPrint =
+  2 + 15
 ```
 
  We won't write out the `import` and `main` lines each time:
@@ -107,7 +106,7 @@ toPrint = 5 /= 5
 False
 toPrint = 5 /= 4
 True
-toPrint = "hello" == "hello"
+toPrint = "hello" == "hello"b
 True
 ```
 
@@ -306,11 +305,11 @@ doubleSmallNumber' x = (if x > 100 then x else x*2) + 1
 ```
 
 Had we omitted the parentheses, it would have added one only if `x` wasn't
-greater than 100. Note the ' at the end of the function name. That
+greater than 100. Note the `'` at the end of the function name. That
 apostrophe doesn't have any special meaning in Elm's syntax. It's a
-valid character to use in a function name. We usually use ' to
+valid character to use in a function name. We usually use `'` to
 denote a
-slightly modified version of a function or a variable. Because ' is a
+slightly modified version of a function or a variable. Because `'` is a
 valid character in functions, we can make a function like this.
 
 ```elm
