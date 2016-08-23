@@ -49,7 +49,7 @@ number is the product of all the numbers from 1 to that number, the sum
 of a list of numbers is the first number plus the sum of all the other
 numbers, and so on. You express that in the form of functions. You also
 can't set a variable to something and then set it to something else
-later. If you say that a is 5, you can't say it's something else later
+later. If you say that `a` is 5, you can't say it's something else later
 because you just said it was 5. What are you, some kind of liar? So in
 stateless functional languages, a function has no side-effects. The only
 thing a function can do is calculate something and return it as a
@@ -89,8 +89,7 @@ ones and have less bugs.
 Elm was made by Evan Czaplicki, who continues to develop it with
 the support of [NoRedInk](https://www.noredink.com/).
 It is currently used in production by several companies,
-including [CircuitHub](https://www.circuithub.com/) and  
-[NoRedInk](http://tech.noredink.com/).
+including [CircuitHub](https://www.circuithub.com/) and  [NoRedInk](http://tech.noredink.com/).
 
 What you need to dive in
 ------------------------
