@@ -106,7 +106,7 @@ toPrint = 5 /= 5
 False
 toPrint = 5 /= 4
 True
-toPrint = "hello" == "hello"b
+toPrint = "hello" == "hello"
 True
 ```
 
