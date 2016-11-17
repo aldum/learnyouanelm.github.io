@@ -974,41 +974,54 @@ composing two functions produces a new function that, when called with a
 parameter, say, *x* is the equivalent of calling *g* with the parameter
 *x* and then calling the *f* with that result.
 
-In Haskell, function composition is pretty much the same thing. We do
-function composition with the . function, which is defined like so:
+In Elm, function composition is pretty much the same thing. We do
+function composition with the (>>) or the (<<) function, which are defined like so:
 
-~~~~ {.haskell:hs name="code"}
-(.) :: (b -> c) -> (a -> b) -> a -> c
-f . g = \x -> f (g x)
-~~~~
+```elm
+(<<) : (b -> c) -> (a -> b) -> a -> c
+f << g = \x -> f (g x)
+```
+
+
+```elm
+(>>) : (a -> b) -> (b -> c) -> a -> c
+h >> i = \x -> i (h x)
+```
 
 ![notes](img/notes.png)
 
 Mind the type declaration. f must take as its parameter a value that has
 the same type as g's return value. So the resulting function takes a
 parameter of the same type that g takes and returns a value of the same
-type that f returns. The expression negate . (\* 3) returns a function
+type that f returns. The expression `negate << (\*) 3` returns a function
 that takes a number, multiplies it by 3 and then negates it.
 
 One of the uses for function composition is making functions on the fly
-to pass to other functions. Sure, can use lambdas for that, but many
+to pass to other functions. Sure, you can use lambdas for that, but many
 times, function composition is clearer and more concise. Say we have a
 list of numbers and we want to turn them all into negative numbers. One
 way to do that would be to get each number's absolute value and then
 negate it, like so:
 
-~~~~ {.haskell:hs name="code"}
-ghci> map (\x -> negate (abs x)) [5,-3,-6,7,-3,2,-19,24]
+```elm
+> List.map (\x -> negate (abs x)) [5,-3,-6,7,-3,2,-19,24]
 [-5,-3,-6,-7,-3,-2,-19,-24]
-~~~~
+```
 
-Notice the lambda and how it looks like the result function composition.
+Notice the lambda and how it looks like the result of function composition.
 Using function composition, we can rewrite that as:
 
-~~~~ {.haskell:hs name="code"}
-ghci> map (negate . abs) [5,-3,-6,7,-3,2,-19,24]
+```elm
+> List.map (negate << abs) [5,-3,-6,7,-3,2,-19,24]
 [-5,-3,-6,-7,-3,-2,-19,-24]
-~~~~
+```
+
+or
+
+```elm
+> List.map (abs >> negate) [5,-3,-6,7,-3,2,-19,24]
+[-5,-3,-6,-7,-3,-2,-19,-24]
+```
 
 Fabulous! Function composition is right-associative, so we can compose
 many functions at a time. The expression f (g (z x)) is equivalent to (f
