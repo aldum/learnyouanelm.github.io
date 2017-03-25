@@ -623,21 +623,21 @@ have no benefit to us.
 
 Two useful functions that operate on pairs:
 
-`fst` takes a pair and returns its first component.
+`first` takes a pair and returns its first component.
 
 ```elm
-toPrint = fst (8,11)
+toPrint = Tuple.first (8,11)
 8
-toPrint = fst ("Wow", False)
+toPrint = Tuple.first ("Wow", False)
 "Wow"
 ```
 
-`snd` takes a pair and returns its second component. Surprise!
+`second` takes a pair and returns its second component. Surprise!
 
 ```elm
-toPrint = snd (8,11)
+toPrint = Tuple.second (8,11)
 11
-toPrint = snd ("Wow", False)
+toPrint = Tuple.second ("Wow", False)
 False
 ```
 
