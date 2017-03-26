@@ -543,13 +543,13 @@ from their programming languages. Instead, we'll use ranges. Ranges are
 a way of making lists that are sequences of numbers.
 
 To make a list containing all the natural numbers from 1 to 20, you just
-write `[1..20]`. That is the equivalent of writing
+write `List.range 1 20`. That is the equivalent of writing
 `[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]` and there's no
 difference between writing one or the other except that writing out long
 enumeration sequences manually is stupid.
 
 ```elm
-toPrint = [1..20]
+toPrint = List.range 1 20
 [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
 ```
 
@@ -623,21 +623,21 @@ have no benefit to us.
 
 Two useful functions that operate on pairs:
 
-`fst` takes a pair and returns its first component.
+`first` takes a pair and returns its first component.
 
 ```elm
-toPrint = fst (8,11)
+toPrint = Tuple.first (8,11)
 8
-toPrint = fst ("Wow", False)
+toPrint = Tuple.first ("Wow", False)
 "Wow"
 ```
 
-`snd` takes a pair and returns its second component. Surprise!
+`second` takes a pair and returns its second component. Surprise!
 
 ```elm
-toPrint = snd (8,11)
+toPrint = Tuple.second (8,11)
 11
-toPrint = snd ("Wow", False)
+toPrint = Tuple.second ("Wow", False)
 False
 ```
 

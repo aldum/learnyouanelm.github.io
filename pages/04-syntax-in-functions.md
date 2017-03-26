@@ -172,7 +172,7 @@ how we would have done it if we didn't know about pattern matching:
 ```elm
 addVectors : (Float, Float) -> (Float, Float) -> (Float, Float)
 addVectors a b = 
-    (fst a + fst b, snd a + snd b)
+    (Tuple.first a + Tuple.first b, Tuple.second a + Tuple.second b)
 ```
 
 Well, that works, but there's a better way to do it. Let's modify the
@@ -232,23 +232,23 @@ implementation of the `List.member` function, which checks if a value
 is present in a list, using 
 
 ```elm
-member' : a -> List a -> Bool
-member' value list =
+member : a -> List a -> Bool
+member value list =
     case list of
         [] -> False
         (x::xs) ->
             if x == value then
                 True
             else 
-                member' value xs
+                member value xs
 ```
 
 Checking if it works:
 
 ```elm
-toPrint = member' 1 [1,2,3,4]
+toPrint = member 1 [1,2,3,4]
 True
-toPrint = member' 1 [2,3,4,5]
+toPrint = member 1 [2,3,4,5]
 False
 ```
 
@@ -284,11 +284,11 @@ more practice by using pattern matching and a little recursion to implement
 our own `List.length` function:
 
 ```elm
-length' : List a -> Int
-length' list =
+length : List a -> Int
+length list =
     case list of
         [] -> 0
-        (_::xs) -> 1 + length' xs
+        (_::xs) -> 1 + length xs
 ```
 
 This is similar to the factorial and member functions we wrote earlier. First we
@@ -300,13 +300,13 @@ don't actually care what it is. Also note that we've taken care of all
 possible patterns of a list. The first pattern matches an empty list and
 the second one matches anything that isn't an empty list.
 
-Let's see what happens if we call `length'` on `['h','a','m']`. First, it will check
+Let's see what happens if we call `length` on `['h','a','m']`. First, it will check
 if it's an empty list. Because it isn't, it falls through to the second
 pattern. It matches on the second pattern and there it says that the
-length is `1 + length' ['a','m']`, because we broke it into a head and a tail
-and discarded the head. O-kay. The `length'` of `['a','m']` is, similarly, `1 +
-length' ['m']`. So right now we have `1 + (1 + length' ['m'])`. `length' ['m'] is
-1 + length' []`. And we've defined `length' []` to be `0`. So in the end we have 
+length is `1 + length ['a','m']`, because we broke it into a head and a tail
+and discarded the head. O-kay. The `length` of `['a','m']` is, similarly, `1 +
+length ['m']`. So right now we have `1 + (1 + length ['m'])`. `length ['m'] is
+1 + length []`. And we've defined `length []` to be `0`. So in the end we have 
 `1 + (1 + (1 + 0))`.
 
 Let's implement `List.sum`. We know that the sum of an empty list is 0. We
@@ -315,11 +315,11 @@ the head plus the sum of the rest of the list. So if we write that down,
 we get:
 
 ```elm
-sum' : List number -> number
-sum' list =
+sum : List number -> number
+sum list =
     case list of
         [] -> 0
-        (x::xs) -> x + sum' xs
+        (x::xs) -> x + sum xs
 ```
 
 One more thing — you can't use `++` in pattern matches. If you tried to

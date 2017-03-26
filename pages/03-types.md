@@ -193,12 +193,12 @@ toPrint = "Hello" ++ "!"
 "Hello!"
 ```
 
-Remember `fst`? It returns the first component of a pair. Let's examine
+Remember `Tuple.first`? It returns the first component of a pair. Let's examine
 its type.
 
 ```elm
-> fst
-<function> : ( a, b ) -> a
+> Tuple.first
+<function> : ( a1, a2 ) -> a1
 ```
 
 We see that `fst` takes a tuple which contains two types and returns an

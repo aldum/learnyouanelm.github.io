@@ -62,14 +62,14 @@ the maximum of the tail is bigger, well, then it's the maximum of the
 tail. That's it! Now let's implement that in Elm.
 
 ```elm
-maximum' : List comparable -> comparable
-maximum' list =
+maximum : List comparable -> comparable
+maximum list =
     case list of
         [] -> Debug.crash "maximum of empty list"
         [x] -> x
         (x::xs) ->
             let 
-                maxTail = maximum' xs
+                maxTail = maximum xs
             in
                 if x > maxTail then
                     x
@@ -98,7 +98,7 @@ of the list. If it is, we return the head. Otherwise, we return the
 maximum of the rest of the list.
 
 Let's take an example list of numbers and check out how this would work
-on them: [2,5,1]. If we call maximum' on that, the first two patterns
+on them: [2,5,1]. If we call maximum on that, the first two patterns
 won't match. The third one will and the list is split into 2 and [5,1].
 The *let* clause wants to know the maximum of [5,1], so we follow that
 route. It matches the third pattern again and [5,1] is split into 5 and
@@ -111,15 +111,15 @@ is 5, we choose 5.
 
 An even clearer way to write this function is to use max. max is a 
 function that takes two comparables and returns the
-bigger of them. Here's how we could rewrite maximum' by using max:
+bigger of them. Here's how we could rewrite maximum by using max:
 
 ```elm
-maximum' : List comparable -> comparable
-maximum' list =
+maximum : List comparable -> comparable
+maximum list =
     case list of
         [] -> Debug.crash "maximum of empty list"
         [x] -> x
-        (x::xs) -> max x (maximum' xs)
+        (x::xs) -> max x (maximum xs)
 ```
 
 How's that for elegant! In essence, the maximum of a list is the max of
@@ -140,12 +140,12 @@ times, it should return an empty list. Also for negative numbers,
 because it doesn't really make sense.
 
 ```elm
-repeat' : Int -> a -> List a
-repeat' n x =
+repeat : Int -> a -> List a
+repeat n x =
     if n <= 0 then
         []
     else 
-        x :: repeat' (n-1) x
+        x :: repeat (n-1) x
 ```
 
 We used an if then else expression here instead of patterns because we're testing for a
@@ -162,14 +162,14 @@ Notice that those are two edge conditions right there. So let's write
 that out:
 
 ```elm
-take' : Int -> List a -> List a
-take' n list =
+take : Int -> List a -> List a
+take n list =
     if n <= 0 then
         []
     else
         case list of
             [] -> []
-            (x::xs) -> x :: take' (n-1) xs
+            (x::xs) -> x :: take (n-1) xs
 ```
 
 ![painter](img/painter.png)
@@ -190,11 +190,11 @@ that if we split a list to a head and a tail, the reversed list is equal
 to the reversed tail and then the head at the end.
 
 ```elm
-reverse' : List a -> List a
-reverse' list =
+reverse : List a -> List a
+reverse list =
     case list of
         [] -> []
-        (x::xs) -> reverse' xs ++ [x]
+        (x::xs) -> reverse xs ++ [x]
 ```
 
 There we go!
