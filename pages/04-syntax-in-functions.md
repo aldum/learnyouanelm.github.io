@@ -189,7 +189,7 @@ The type of `addVectors` (in both cases) is `addVectors : (Float, Float) ->
 (Float, Float) - > (Float, Float)`, so we are guaranteed to get two pairs as
 parameters.
 
-`fst` and `snd` extract the components of pairs. But what about triples?
+`first` and `second` extract the components of pairs. But what about triples?
 Well, there are no provided functions that do that but we can make our
 own.
 
@@ -220,7 +220,7 @@ length 1 or more.
 
 *Note*: xs is not some special "pattern matching" variable. It's just like 
 any other variable. x::y would bind the head of the list to x and the rest of
-it to y. The s is just used by convention.
+it to y. The s on the end is just used by convention.
 
 If you want to bind, say, the first three elements to variables and the
 rest of the list to another variable, you can use something like
