@@ -23,7 +23,7 @@ them later on. It makes the whole deal of writing code more manageable
 by having it split into several parts, each of which has some sort of
 purpose.
 
-The Elm standard library is split into modules, each of them
+The Elm core library is split into modules, each of them
 contains functions and types that are somehow related and serve some
 common purpose. There's a module for manipulating lists, a module for
 concurrent programming, a module for dealing with dates, etc.
@@ -36,16 +36,28 @@ The syntax for importing modules in an Elm script is `import <module
 name>`, which will make the entire module accessible under the `module name`
 namespace (e.g. if we import the `List` module, we can access everything exposed
 by the module as long as you put `List.` before it... like `List.map`, `List.filter`,
-etc.). This must be done before defining any functions, so imports are
+etc.). These are called *qualified* imports. The functions you're importing are
+qualified by the module name, like `Dict.map` or `String.toList`
+You can also import specific functions from a module like this:
+`import List exposing (map, filter)` or `import Dict exposing (..)`
+(which exposes everything in the `Dict` module). These are *unqualified* imports.
+This can make your code more concise, but since many modules export functions
+with identical names (e.g. `map` and `filter`), you may need to take
+care not to import multiple identically named functions into the same
+module (but don't worry too much, if you do the compiler will let you know),
+Importing must be done before defining any functions, so imports are
 usually done at the top of the file. One script can, of course, import
 several modules. Just put each import statement into a separate line.
 Let's import the `List` module, which has a bunch of useful functions
 for working with lists and use a function that it exports to create a
 function that tells us how many odd elements a list has. We'll also import
 the `Tuple` module to work with the results produced by `List.partition`.
+`List` and `Tuple` are imported qualified by default, so the following is
+intended just to give you an idea of how importing works. You wouldn't
+necessarily need to do the following in real life.
 
 ```elm
-import List
+import List exposing (length, partition)
 import Tuple
 
 numOdds : List number -> Int
@@ -53,29 +65,20 @@ numOdds =
     let
         odd n = n % 2 == 1
     in
-    List.length << Tuple.first << List.partition odd
+    length << Tuple.first << partition odd
 ```
 
-When you do `import List`, all the functions that `List` exports
-become available under the `List` namespace, meaning that you can call them
-from wherever in the script. `partition` is a function defined in `List` that
+When you do `import Tuple`, all the functions that `Tuple` exports
+become available under the `Tuple` namespace, meaning that you can call them
+from wherever in the script. And when you do
+`import List exposing (length, partition)`, you pull `length` and `partition`
+into the module unqalified.
+`partition` is a function defined in `List` that
 takes a predicate and a list and produces a tuple of two lists. The first list
 being those elements for which the predicate evaluated to `True`, and the
 second list being those elements for which the predicate evaluated to
-`False`. Composing `List.length`, `Tuple.first`, and `List.partition`
-we produce a function that's the equivalent of `\xs -> List.length (Tuple.first (List.partition (\n -> n % 2 == 1) xs))`
-
-
-If you just need a couple of functions from a module, you can
-selectively import just those functions. If we wanted to import only the
-`partition` and `sort` functions from `List`, we'd do this:
-
-```elm
-import List exposing (partition, sort)
-```
-
-This will also have the effect of making these functions available
-to use without the `List.` prefix.
+`False`. Composing `length`, `Tuple.first`, and `partition`
+we produce a function that's the equivalent of `\xs -> length (Tuple.first (partition (\n -> n % 2 == 1) xs))`
 
 We can also import modules using the `as` keyword to provide a shorter
 name. For example,
@@ -90,7 +93,7 @@ This makes it so that if we want to reference `Json.Decode`'s `string`
 function, we don't have to type out `Json.Decode.string` every time.
 
 Use [this handy
-reference](http://package.elm-lang.org/packages/elm-lang/core) to
+reference](http://package.elm-lang.org/packages/elm-lang/core/5.1.1) to
 see which modules are in the standard library. A great way to pick up
 new Elm knowledge is to just click through the standard library
 reference and explore the modules and their functions. You can also view
@@ -188,7 +191,7 @@ Int.
 
 The `sort` function also has a more general equivalent.
 `sortWith` take a function that determines if one element is greater,
-smaller or equal to the other. The type signature of `sortBy` is `sortBy :
+smaller or equal to the other. The type signature of `sortWith` is `sortWith :
 (a -> a -> Order) -> List a -> List a`. If you remember from before, the
 Order type can have a value of LT, EQ or GT. `sort` is the equivalent
 of `List.sortWith compare`, because `compare` just takes two elements whose type is
@@ -198,7 +201,7 @@ Lists can be compared, but when they are, they are compared
 lexicographically. What if we have a list of lists and we want to sort
 it not based on the inner lists' contents but on their lengths? Well, as
 you've probably guessed, we'll use the `sortWith` function. First we'll
-define the `on` function, like this: 
+define the `on` function, like this, to act as a helper: 
 
 ```elm
 on : (b -> b -> c) -> (a -> b) -> a -> a -> c
@@ -209,7 +212,8 @@ So doing `on (==) (> 0)` returns an equality function that looks like `\x y -> (
 
 ```elm
 > xs = [[5,4,5,4,4],[1,2,3],[3,5,4,3],[],[2],[2,2]]
-> List.sortWith (on compare length) xs
+[[5,4,5,4,4],[1,2,3],[3,5,4,3],[],[2],[2,2]] : List (List number)
+> List.sortWith (on compare List.length) xs
 [[],[2],[2,2],[1,2,3],[3,5,4,3],[5,4,5,4,4]]
 ```
 
@@ -217,9 +221,9 @@ Awesome! `on compare List.length`... man, that reads almost like real
 English! If you're not sure how exactly the `on` works here, `on compare List.length`
 is the equivalent of `\x y -> compare (List.length x) (List.length y)`.
 When you're dealing with *By/With* functions that take an equality
-function, you might do something like `on (==)` something and when you're dealing
+function, you might do something like `on (==) something` and when you're dealing
 with *By/With* functions that take an ordering function, you might do
-`on compare` something.
+`on compare something`.
 
 Char
 ---------
@@ -253,7 +257,7 @@ with the `Char` predicates to determine if the username is alright.
 ```elm
 > List.all Char.isLower <| String.toList "bobby"
 True : Bool
-> List.all Char.isLower <| String.toList "BOBBY"
+> List.all Char.isLower <| String.toList "Bobbyå"
 False : False
 ```
 
@@ -303,9 +307,10 @@ Here, we first convert the string to a list of `Char`, then map
 it to a list of `KeyCode`'s (which, again, are just a type alias to `Int`).
 Then we add the
 shift amount to each number before converting the list of numbers back
-to characters. If you're a composition cowboy, you could write the body
-of this function as
-`String.fromList <| List.map (Char.fromCode << ((+) shift) << Char.toCode) <| String.toList msg`.
+to characters, then back to a string. If you're a composition cowboy,
+you could write the body of this function as
+`String.fromList <| List.map (Char.fromCode << ((+) shift) << Char.toCode)
+<| String.toList msg`.
 Let's try encoding a few messages.
 
 ```elm
@@ -377,7 +382,7 @@ list so that only matching keys remain, gets the first key-value that
 matches and returns the value. But what happens if the key we're looking
 for isn't in the association list? Hmm. Well, our old friend `Maybe` is
 here to help. If we don't find the key, we'll return a `Nothing`.
-If we find it, we'll return `Just` something, where something is the value
+If we find it, we'll return `Just something`, where `something` is the value
 corresponding to that key.
 
 This is a textbook recursive function that operates on a list. Edge
@@ -398,11 +403,11 @@ explicit recursion.
 
 ```elm
 > findKey "penny" phoneBook
-Just "853-2492" : Maybe String
+Just "853-2492" : Maybe.Maybe String
 > findKey "betty" phoneBook
-Just "555-2938" : Maybe String
+Just "555-2938" : Maybe.Maybe String
 > findKey "wilma" phoneBook
-Nothing : Maybe String
+Nothing : Maybe.Maybe String
 ```
 
 ![legomap](img/legomap.png)
@@ -427,14 +432,14 @@ and returns a dictionary with the same associations.
 > Dict.fromList [("betty","555-2938"),("bonnie","452-2928"),("lucille","205-2928")]
 Dict.fromList [("betty","555-2938"),("bonnie","452-2928"),("lucille","205-2928")] : Dict.Dict String String
 > Dict.fromList [(1,2),(3,4),(3,2),(5,5)]
-Dict.fromList [(1,2),(3,2),(5,5)] : Dict.Dict number number
+Dict.fromList [(1,2),(3,2),(5,5)] : Dict.Dict number number1
 ```
 
 If there are duplicate keys in the original association list, the
-duplicates are just discarded. This is the type signature of fromList
+duplicates are just discarded. This is the type signature of `fromList`
 
 ```elm
-Dict.fromList : List (comparable, v)] -> Dict.Dict comparable v
+Dict.fromList : List (comparable, v) -> Dict.Dict comparable v
 ```
 
 It says that it takes a list of pairs of type `comparable` and `v` and returns a
@@ -445,6 +450,17 @@ needs the keys to be comparable so it can arrange them in a tree.
 
 You should always use `Dict` for key-value associations unless you
 have keys that aren't part of the `comparable` typeclass.
+
+Let's back up for a moment. Did notice anything unusual with our
+dictionary's type signature? `Dict.Dict number number1`. We've seen
+`number` before, so what is `number1`? Well, `number` in Elm is a
+typeclass consisting of either `Int` or `Float`. So what the type
+system is telling us is that we have a dictionary with keys of
+type `number` and values also of type `number`, but we should not
+assume that these types are equivalent! It could turn out that our
+keys are `Int`'s, but our values are `Float`'s (or vice versa), so
+the type system is helping us out here by keeping these two types
+distinct. Alright, let's continue.
 
 `empty` represents an empty dictionary. It takes no arguments, it just returns an
 empty dictionary.
@@ -461,19 +477,19 @@ that's just like the old one, only with the key and value inserted.
 > Dict.empty
 Dict.fromList [] : Dict.Dict k v
 > Dict.insert 3 100 Dict.empty
-Dict.fromList [(3,100)] : Dict.Dict number number
+Dict.fromList [(3,100)] : Dict.Dict number number1
 > Dict.insert 5 600 (Dict.insert 4 200 ( Dict.insert 3 100  Dict.empty))
-fromList [(3,100),(4,200),(5,600)] : Dict.Dict number number
+fromList [(3,100),(4,200),(5,600)] : Dict.Dict number number1
 > Dict.insert 5 600 << Dict.insert 4 200 << Dict.insert 3 100 <| Dict.empty
-fromList [(3,100),(4,200),(5,600)] : Dict.Dict number number
+fromList [(3,100),(4,200),(5,600)] : Dict.Dict number number1
 ```
 
-We can implement our own fromList by using the empty map, insert and a
-fold. Watch:
+We can implement our own `fromList` by using the empty dictionary, `insert` and a
+`fold`. Watch:
 
 ```elm
 fromList : List (comparable,v) -> Dict.Dict comparable v
-fromList list = List.foldr (\(k, v) acc -> Dict.insert k v acc) Dict.empty list
+fromList = List.foldr (\(k, v) acc -> Dict.insert k v acc) Dict.empty
 ```
 
 It's a pretty straightforward fold. We start of with an empty dictionary and we
@@ -503,12 +519,12 @@ mapping.
 
 ```elm
 > Dict.singleton 3 9
-fromList [(3,9)] : Dict.Dict number number
+fromList [(3,9)] : Dict.Dict number number1
 > Dict.insert 5 9 <| Dict.singleton 3 9
-fromList [(3,9),(5,9)] : Dict.Dict number number
+fromList [(3,9),(5,9)] : Dict.Dict number number1
 ```
 
-`get` returns `Just` something if it finds something for the key and `Nothing`
+`get` returns `Just something` if it finds `something` for the key and `Nothing`
 if it doesn't.
 
 `member` is a predicate that takes a key and a dictionary and reports whether the key
@@ -521,12 +537,14 @@ True : Bool
 False : Bool
 ```
 
-`map` and `filter` work much like their list equivalents.
+`map` and `filter` work much like their list equivalents, although the functions
+you pass to them will need to have a slightly different signature to account
+for both the key and the value which they will be passed.
 
 ```elm
 > Dict.map (\k v -> (k, v * 100)) <| Dict.fromList [(1,1),(2,4),(3,9)]
-fromList [(1,100),(2,400),(3,900)] : Dict.Dict number number
-> Dict.filter (\k v -> Char.isUpper v) <| Dict.fromList [(1,'a'),(2,'A'),(3,'b'),(4,'B')]
+fromList [(1,100),(2,400),(3,900)] : Dict.Dict number number1
+> Dict.filter (\_ v -> Char.isUpper v) <| Dict.fromList [(1,'a'),(2,'A'),(3,'b'),(4,'B')]
 fromList [(2,'A'),(4,'B')] : Dict.Dict number Char
 ```
 
@@ -544,7 +562,7 @@ equivalent of `List.map Tuple.first << Dict.toList` and `values` is the equivale
 
 These were just a few functions from `Dict`. You can see a complete
 list of functions in the
-[documentation](http://package.elm-lang.org/packages/elm-lang/core/5.1.1).
+[documentation](http://package.elm-lang.org/packages/elm-lang/core/5.1.1/Dict).
 
 Set
 --------
@@ -581,7 +599,7 @@ Set.fromList [' ','!','T','a','b','c','d','e','f','g','h','i','l','m','n','o','r
 ```
 
 As you can see, the items are ordered and each element is unique. Now
-let's use the intersection function to see which elements they both
+let's use the `intersect` function to see which elements they both
 share.
 
 ```elm
@@ -651,6 +669,9 @@ with `toList`.
 " ACEHIKLNRSTWY" : String
 ```
 
+Keep in mind, though, that the order of the original list likely will
+not be preserved.
+
 Making our own modules
 ----------------------
 
@@ -678,14 +699,15 @@ we specify the functions that it exports and after that, we can start
 writing the functions. So we'll start with this.
 
 ```elm
-module Geometry exposing
-( sphereVolume
-, sphereArea
-, cubeVolume
-, cubeArea
-, cuboidArea
-, cuboidVolume
-)
+module Geometry
+    exposing
+        ( sphereVolume
+        , sphereArea
+        , cubeVolume
+        , cubeArea
+        , cuboidArea
+        , cuboidVolume
+        )
 ```
 
 As you can see, we'll be doing areas and volumes for spheres, cubes and
@@ -793,7 +815,6 @@ volume radius =
 area : Float -> Float
 area radius =
     4 * pi * (radius ^ 2)
-
 ```
 
 Cuboid.elm
@@ -819,7 +840,6 @@ area a b c =
 rectangleArea : Float -> Float -> Float
 rectangleArea a b =
     a * b
-
 ```
 
 Cube.elm
