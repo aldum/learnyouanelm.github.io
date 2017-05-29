@@ -570,7 +570,7 @@ Set
 ![legosets](img/legosets.png)
 
 The `Set` module offers us, well, sets. Like sets from mathematics.
-Sets are kind of like a cross between lists and maps. All the elements
+Sets are kind of like a cross between lists and dictionaries. All the elements
 in a set are unique. And because they're internally implemented with
 trees (much like dictionaries in `Dict`), they're ordered. Checking for
 membership, inserting, deleting, etc. is much faster than doing the same
