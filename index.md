@@ -13,6 +13,7 @@ Adapted for Elm by:
 
 * Joey Eremondi
 * Alex Neslusan
+* Eben Packwood
 
 Contents
 ----
