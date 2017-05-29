@@ -47,8 +47,8 @@ The space is sort of like an operator and it has the highest precedence.
 Let's examine the type of `max`. It's `max : comparable -> comparable -> comparable`.
 That can also be written as `max : comparable -> (comparable -> comparable)`. That
 could be read as: `max` takes a `comparable` and returns (that's the `->`) a function
-that takes an `comparable` and returns a `comparable`. That's why the return type and the
-parameters of functions are all simply separated with arrows.
+that takes an `comparable` and returns a `comparable`. That's why the return type and
+the parameters of functions are all simply separated with arrows.
 
 So how is that beneficial to us? Simply speaking, if we call a function
 with too few parameters, we get back a *partially applied* function,
@@ -112,9 +112,7 @@ compareWithHundred = compare 100
 
 The type declaration stays the same, because `compare 100` returns a
 function. Compare has a type of `number -> (number -> Order)` and
-calling it with `100` returns a `number -> Order`. The
-additional class constraint sneaks up there because `100` is also part of
-the number typeclass.
+calling it with `100` returns a `number -> Order`.
 
 *Yo!* Make sure you really understand how curried functions and partial
 application work because they're really important!
@@ -124,12 +122,12 @@ in parentheses. This creates a function that takes one parameter and then
 applies it to the right side of the function. An insultingly trivial function:
 
 ```elm
-addTen : number -> number
-addTen = (+) 10
+subTen : number -> number
+subTen = (-) 10
 ```
 
-Calling, say, `addTen 200` is equivalent to doing `10 + 200`, as is
-doing `((+) 10) 200`.
+Calling, say, `subTen 5` is equivalent to doing `10 - 5`, as is
+doing `((-) 10) 5`.
 ```
 
 Some higher-orderism is in order
@@ -156,7 +154,7 @@ save ourselves a headache, we'll just say that this function takes two
 parameters and returns one thing. The first parameter is a function (of
 type `a -> a`) and the second is that same `a`. The function can also be
 `Int -> Int` or `String -> String` or whatever. But then, the second
-parameter to also has to be of that type.
+parameter also has to be of that type.
 
 *Note:* From now on, we'll say that functions take several parameters
 despite each function actually taking only one parameter and returning
@@ -224,8 +222,8 @@ things our `zipWith` function can do:
 ```elm
 > zipWith (+) [4,2,5,6] [2,6,2,3]
 [6,8,7,9] : List number
-zipWith max [6,3,2,1] [7,3,1,5]
-> [7,3,2,5] : List number
+> zipWith max [6,3,2,1] [7,3,1,5]
+[7,3,2,5] : List number
 > zipWith (++) ["foo ", "bar ", "baz "] ["fighters", "hoppers", "aldrin"]
 ["foo fighters","bar hoppers","baz aldrin"] : List String
 > zipWith (*) (List.repeat 5 2) [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -311,7 +309,7 @@ action:
 
 ```elm
 > List.map ((+) 3) [1,5,3,1,6]
-[4,8,6,4,9] : List : number
+[4,8,6,4,9] : List number
 > List.map (flip (++) "!") ["BIFF", "BANG", "POW"]
 ["BIFF!","BANG!","POW!"] : List String
 > List.map (List.repeat 3) [3, 4, 5, 6]
@@ -319,7 +317,7 @@ action:
 > List.map (List.map (flip (^) 2)) [[1,2],[3,4,5,6],[7,8]]
 [[1,4],[9,16,25,36],[49,64]] : List (List number)
 > List.map Tuple.first [(1,2),(3,5),(6,3),(2,6),(2,5)]
-[1,3,6,2,2] : List (List number)
+[1,3,6,2,2] : List number
 ```
 
 `filter` is a function that takes a predicate (a predicate is a function
@@ -348,7 +346,8 @@ in the new list. If it doesn't, it stays out. Some usage examples:
 [5,6,4] : List number
 > List.filter ((==) 3) [1,2,3,4,5]
 [3] : List number
-> List.filter (let nonEmpty ls = not (List.isEmpty ls) in nonEmpty) [[1,2,3],[],[3,4,5],[2,2],[],[],[]]
+> List.filter (let nonEmpty ls = not (List.isEmpty ls) in nonEmpty) \
+|    [[1,2,3],[],[3,4,5],[2,2],[],[],[]]
 [[1,2,3],[3,4,5],[2,2]] : List (List number)
 ```
 
@@ -391,8 +390,8 @@ predicate and a list and then goes from the beginning of the list and
 returns its elements while the predicate holds true. Once an element is
 found for which the predicate doesn't hold, it stops. If we wanted to
 get all square numbers less than 100, we could
-do `(takeWhile (flip (<) 10) (List.map (flip (^) 2) (List.range 0 100))`
-and it would return a list of all square less than 100.
+do `(takeWhile (flip (<) 100) (List.map (flip (^) 2) (List.range 0 100))`
+and it would return a list of all square numbers less than 100.
 
 `takeWhile` is defined like this:
 
@@ -404,13 +403,14 @@ takeWhile p list = case list of
 ```
 
 Okay. The sum of all odd squares that are smaller than
-10,000. First, we'll begin by mapping the `(flip (\^) 2)` function to the
+10,000. First, we'll begin by mapping the `(flip (^) 2)` function to the
 list `List.range 0 9999`. Then we filter them so we only get the odd ones.
 Finally, we'll get the sum of that list. We don't even have to define a
 function for that, we can do it in one line in Elm:
 
 ```elm
-> List.sum (takeWhile (flip (<) 10000) (List.filter (\n -> n % 2 /= 0) (List.map (flip (^) 2) (List.range 0 10000))))
+> List.sum (takeWhile (flip (<) 10000) (List.filter (\n -> n % 2 /= 0) \
+|    (List.map (flip (^) 2) (List.range 0 10000))))
 166650 : Int
 ```
 
@@ -525,17 +525,22 @@ So `Maybe` is a polymorphic type which is either `Just a`, or `Nothing`.
 How is this useful? Many programming problems have edge cases where there
 is no well-defined answer. In such cases, we can say that we're dealing with
 a partial function (as opposed to a total function), because the domain of our
-funciton (the inputs) do not all map to the codomain (an output).
+function (the inputs) only partially maps to the codomain (an output).
+In other words, there are values in our domain for which the function does not
+produce a value in the codomain. In other, other words, there are inputs
+to our function which are technically valid (from a type perspective), but
+which can't produce an output that really makes any sense.
 Let's take the example of `List.head`. Unsurprisingly,
 this function takes a list, and returns its head. But what should we return
 in the case of the empty list? An empty list can't really be said to have a
-head, or a tail for that matter. In some languages, this might be handled
+head... or a tail for that matter. In some languages, this might be handled
 by throwing a runtime exception (Elm strives to eliminate all runtime exceptions).
 In others, this might be handled by returning a `Null` value. With null values,
 the programmer must take extra care to check whether their return value is null before
 they try to use it. If they don't, again we're likely to see runtime exceptions.
-The way Elm handles this, while avoiding pesky runtime exceptions, is to encode
-this uncertainty into a type. With the `Maybe` type, we're forced to handle the
+The way Elm handles this, while avoiding those pesky runtime exceptions, is to encode
+this uncertainty into a type. With the `Maybe` type, the (non-)existence of a value is
+reflected plainly and completely in the type, and we're forced to handle the
 case where we don't get back any meaningful value. To demonstrate this, let's
 look at how `head` is implemented.
 
@@ -559,7 +564,7 @@ against both cases. For example:
 
 And because the Elm compiler will complain if we don't
 handle every possibility, we can always be certain that we have handled all of
-the edge cases
+the edge cases.
 
 So, does that make sense? If you answered 'maybe', then you're ready to continue.
 
@@ -690,7 +695,7 @@ explicit recursion.
 
 ```elm
 sum : List number -> number
-sum xs = List.foldl (\acc x -> acc + x) 0 xs
+sum xs = List.foldl (\x acc -> acc + x) 0 xs
 ```
 
 Testing, one two three:
@@ -703,7 +708,7 @@ sum [3,5,2,1]
 ![foldl](img/foldl.png)
 
 Let's take an in-depth look into how this fold happens.
-`\acc x -> acc + x` is the binary function. `0` is the starting value and
+`\x acc -> acc + x` is the binary function. `0` is the starting value and
 `xs` is the list to be folded up. Now first, `0` is used as the `acc` parameter
 to the binary function and `3` is used as the `x` (or the current element) parameter.
 `0 + 3` produces a `3` and it becomes the new accumulator value, so to speak.
@@ -775,7 +780,7 @@ now `[5,6]`. We apply `((+) 3)` to `1` and prepend that to the accumulator and s
 the end value is `[4,5,6]`.
 
 Of course, we could have implemented this function with a left fold too.
-It would be `List.map f xs = foldl (\x acc -> acc ++ [f x]) [] xs`, but the
+It would be `map f xs = List.foldl (\x acc -> acc ++ [f x]) [] xs`, but the
 thing is that the `++` function is much more expensive than `::`, so we
 usually use right folds when we're building up new lists from a list.
 
@@ -797,15 +802,17 @@ bunch of standard library functions by using folds:
 
 ```
 maximum : List a -> Maybe a
-maximum = List.foldr (\x acc ->
-    if
-        case acc of
-            Nothing -> True
-            Just n -> x > n
-    then
-        Just x
-    else
-        acc) Nothing
+maximum = List.foldr
+    (\x acc ->
+        if
+            case acc of
+                Nothing -> True
+                Just n -> x > n
+        then
+            Just x
+        else
+            acc)
+    Nothing
 
 reverse : List a -> List a
 reverse = List.foldl (\x acc -> x :: acc) []
@@ -947,7 +954,7 @@ direction.
 
 In the example above, the result of `List.sum [3, 7, 6]` (16) is passed
 to the `sqrt` function, which produces 4.0, which is passed to `List.repeat 3`,
-which produces the list `[3,3,3]`, which is passed to `List.map ((+) 2),
+which produces the list `[4,4,4]`, which is passed to `List.map ((+) 2),
 which produces the final result `[6,6,6]`.
 
 But apart from getting rid of parentheses, `<|` and `|>` mean that function
