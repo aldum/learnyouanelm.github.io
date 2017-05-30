@@ -566,8 +566,8 @@ Path)` can be used as the binary function for a left fold, which has to
 have a type of `b -> a -> a`
 
 ```elm
-roadStep : Section -> (Path, Path)  -> (Path, Path)
-roadStep {getA, getB , getC} (pathA, pathB) =
+roadStep : Section -> (Path, Path) -> (Path, Path)
+roadStep {getA, getB, getC} (pathA, pathB) =
     let priceA = sum <| List.map Tuple.second pathA
         priceB = sum <| List.map Tuple.second pathB
         forwardPriceToA = priceA + getA
@@ -687,17 +687,29 @@ groups of the same size. We'll call it `groupsOf`. For a parameter of
 
 ```elm
 groupsOf : Int -> List a -> Maybe (List (List a))
-groupsOf n list = case (n, list) of
-    (0, _) -> Nothing
-    (_, []) -> Just []
-    (n, xs) -> Maybe.map (\rest -> List.take n xs :: rest) (groupsOf n (List.drop n xs))
+groupsOf n list =
+    if n <= 0 then
+        Nothing
+    else
+        case (n, list) of
+        (_, []) ->
+            Just []
+
+        (n, xs) ->
+            Maybe.map (\rest -> List.take n xs :: rest)
+                (groupsOf n (List.drop n xs))
 ```
 
-A standard recursive function. For an `xs` of `List.range 1 10` and an `n` of `3`, this
-equals `Just [1,2,3] :: groupsOf 3 [4,5,6,7,8,9,10]`. When the recursion is
-done, we get our list in groups of three. And here's our `logPath` function,
+A standard recursive function. For an `xs` of `List.range 1 10` and an `n` of `3`,
+this equals `Just [1,2,3] :: groupsOf 3 [4,5,6,7,8,9,10]`. When the recursion is
+done, we get our list in groups of three. As you can see, our function isn't well
+defined for `n <= 0` (how would you form groups of -2?). This is reflected in the
+type signature. If we receive a grouping value that doesn't make sense,
+we'll return `Nothing.
+
+And here's our `logPath` function,
 which takes a `String`, makes a `RoadSystem` out of it and
-logs the shortest path to the console:
+returns a `String` message with the shortest path (... maybe):
 
 ```elm
 import List exposing (..)
@@ -728,7 +740,7 @@ convertPath p =
       <| map (combine << map (Result.toMaybe << String.toInt))
       <| xs
 
-calculatePath pathInput = 
+logPath pathInput =
     let 
         threes = convertPath <| groupsOf 3 (lines pathInput)
         roadSystem = flatten <| Maybe.map (combine << map (\ls -> 
@@ -742,8 +754,7 @@ calculatePath pathInput =
     in
       Maybe.map2 (\path price ->
         "The best path to take is: " ++ (toString path) ++
-        "The price is: " ++ (toString price)) pathString pathPrice
-      
+        "The price is: " ++ (toString price)) pathString pathPrice  
 ```
 
 First, we we call `lines` with our input string to convert something
@@ -776,7 +787,7 @@ input = """50
 to our program.
 
 ```elm
-> case calculatePath input of \
+> case logPath input of \
 |   Just result -> result \
 |   Nothing -> ""
 "The best path to take is: [B,C,A,C,B,B,C]\nThe price is: [10,30,5,20,2,8,0]" : String
