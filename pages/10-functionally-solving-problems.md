@@ -126,7 +126,19 @@ over that list of items with the folding function. Mind the [], which
 represents the starting accumulator. The accumulator is our stack, so []
 represents an empty stack, which is what we start with. After getting
 the final stack with a single item, we then call head on that list to get the
-item out (... maybe).
+item out... maybe.
+
+Something interesting happened here. Originally we were thinking the
+type signature for this function might look something like
+`String -> number`. However, as we started to sketch out an implementation,
+our function had to adapt to meet real world requirements. As we discussed
+earlier, the `head` function returns a `Maybe` type, as otherwise it would not
+have any kind of meaningful value to return when passed an empty list.
+We could have eliminated this type from our function, e.g. by using the
+`Maybe.withDefault` function to return a default value (0 seems like it
+would be a natural fit) when passed an empty expression. However,
+as we'll see later, due to the possibility of failure when parsing the
+expression, this type signature may not be such a bad fit after all.
 
 So all that's left now is to implement a folding function that will take
 a stack, like `[4,10]`, and an item, like `"3"` and return a new stack
@@ -150,10 +162,18 @@ solveRPN =
 Ah, there we go. Much better. So, the folding function will take a stack
 and an item and return a new stack. We'll use pattern matching to get
 the top items of a stack and to pattern match against operators like
-`"*"` and `"-"`.
+`"*"` and `"-"`. Also, as mentioned earlier, our fold finction will be
+performing an operation `String.toFloat` which can potentially fail
+(e.g. if it's passed a string which can't be converted to a number).
+We could allow this possibility for failure to be reflected in our function's
+type (that's what the `Result` type represents), but since we're already
+dealing with `Maybe`'s, we can also convert this `Result` to a `Maybe`,
+just to keep things easy for ourselves. As such, we'll introduce the
+`flatten` function, which has a signature like `Maybe (Maybe a) -> Maybe a`,
+to help wrangle nested `Maybe`'s. 
 
 ```elm
-solveRPN : String -> Maybe Float
+solveRPN : String -> Maybe number
 solveRPN =
     let
         flatten maybe = case maybe of
@@ -177,32 +197,25 @@ solveRPN =
 ```
 
 With a concrete implementation in hand, you'll notice that our type signature
-has changed slightly. Since we'll be converting our input string to a stack,
-and we'll be attempting to convert items on our stack (which are strings) to
-numbers, we're going to have to consider the very real possibility of
-failure. Our `String.toFloat` conversion function returns a `Result`
-which is a type that represents the possibility of failure. It can
+has changed again slightly. Our `String.toFloat` conversion function returns a
+`Result` which is a type that represents the possibility of failure. It can
 either be `OK value` (meaning, in this case, that it was able to convert
 the `String` to a `Float`) or it can be `Err error` (as would happen here if,
-e.g. you tried to convert the `String` `"foobar"` to a `Float`),
+e.g. you tried to convert the string `"foobar"`),
 with value and error representing the value of a successfully completed
-computation and an error respectively. If someone were to call our `solveRPN`
-function with the string "foo bar baz", clearly we would not be able to proceed as
-intended. In this case, `String.toFloat` would return an `Err`.
-
-We will be dealing with a `Maybe` type when we try to call `head` on our stack later,
-so we'll convert this `Result` to a `Maybe` type, which means our stack will
-need to be a `List (Maybe Float)`. We also define the `flatten` function
-to flatten out the nested `Maybe (Maybe Float)` which we will get as a result
-of calling `head` on stack result returned by `foldl`, into just a `Maybe Float`.
+computation and an error respectively. We're converting this to a `Maybe`,
+so nothing really new there. However, the conversion functions available
+to us all have concrete numeric types (either `String.toInt : String -> Result Int`,
+`String.toFloat : String -> Result Float`), so our hand is forced a bit,
+and we need to choose one or the other.
 
 So, we laid our `foldingFunction` out as four patterns. The patterns will be
 tried from top to bottom. First the folding function will see if the current
 item is `"*"`. If it is, then it will take a list like
-`[Just 3,Just 4,Just 9,Just 3]` and `Maybe.map` its
+`[Just 3,Just 4,Just 9,Just 3]` and `Maybe.map2` its
 first two elements x and y respectively. So in this case, `x` would be `Just 3`
 and `y` would be `Just 4`. `ys` would be `[Just 9,Just 3]`. It will return a list that's just
-like `ys`, only it has `Just` `x` and `y` multiplied as its head. So with this we pop
+like `ys`, only it has `Just (x * y)` as its head. So with this we pop
 the two topmost numbers off the stack, multiply them and push the result
 back on to the stack. If the item is not `"*"`, the pattern matching will
 fall through and `"+"` will be checked, and so on.
@@ -218,7 +231,7 @@ And that's it!
 For the list of items `["2","3","+"]`, our function will start folding
 from the left. The intial stack will be []. It will call the folding
 function with [] as the stack (accumulator) and `"2"` as the item. Because
-that item is not an operator, it will be read and the added to the
+that item is not an operator, it will be read and then added to the
 beginning of []. So the new stack is now `[Just 2]` and the folding function
 will be called with `[Just 2]` as the stack and `"3"` as the item, producing a
 new stack of `[Just 3, Just 2]`. Then, it's called for the third time with
@@ -432,7 +445,7 @@ first, only we take into account what the previous best paths on `A` and
 on `B` in the first step, only they were both empty paths with a cost of
 0.
 
-Here's a summary. To get the bast path from Heathrow to London, we do
+Here's a summary. To get the best path from Heathrow to London, we do
 this: first we see what the best path to the next crossroads on main
 road `A` is. The two options are going directly forward or starting at the
 opposite road, going forward and then crossing over. We remember the
@@ -451,7 +464,7 @@ is our path. We now know how to figure out the shortest path by hand. If
 you had enough time, paper and pencils, you could figure out the
 shortest path through a road system with any number of sections.
 
-Next step! How do we represent this road system with Haskell's data
+Next step! How do we represent this road system with Elm's data
 types? One way is to think of the starting points and crossroads as
 nodes of a graph that point to other crossroads. If we imagine that the
 starting points actually point to each other with a road that has a
@@ -503,8 +516,8 @@ type RoadSystem = List Section
 
 This is pretty much perfect! It's as simple as it goes and I have a
 feeling it'll work perfectly for implementing our solution. `Section` is a
-simple record type that holds three integers for the lenghts of
-its three road parts. We introduce a type alias as well, saying that
+simple record type that holds three integers for the lengths of
+its three road parts. We introduce abother type alias as well, saying that
 `RoadSystem` is a list of sections.
 
 We could also use a triple of `(Int, Int, Int)` to represent a road
@@ -632,9 +645,9 @@ directly forward from the starting point at `B`.
 
 *Optimization tip:* when we do `priceA = sum <| List.map Tuple.second pathA`, we're
 calculating the price from the path on every step. We wouldn't have to
-do that if we implemented `roadStep` as a `(Path, Path, Int, Int) ->
-Section -> (Path, Path, Int, Int)` function where the integers represent
-the best price on `A` and `B`.
+do that if we implemented `roadStep` as a `Section ->
+(Path, Path, Int, Int) -> (Path, Path, Int, Int)` function where the integers 
+represent the best price on `A` and `B`.
 
 Now that we have a function that takes a pair of paths and a section and
 produces a new optimal path, we can just easily do a left fold over a
@@ -651,7 +664,8 @@ optimalPath roadSystem =
     let
       (bestAPath, bestBPath) = List.foldl roadStep ([],[]) roadSystem
     in
-    if List.sum (List.map Tuple.second bestAPath) <= List.sum (List.map Tuple.second bestBPath)
+    if List.sum (List.map Tuple.second bestAPath) <=
+        List.sum (List.map Tuple.second bestBPath)
             then List.reverse bestAPath
             else List.reverse bestBPath
 ```
@@ -683,7 +697,7 @@ input, convert it into a type of RoadSystem, run that through our
 
 First off, let's make a function that takes a list and splits it into
 groups of the same size. We'll call it `groupsOf`. For a parameter of
-`List.range 1 10`, `groupsOf 3` should return `[[1,2,3],[4,5,6],[7,8,9],[10]]`.
+`List.range 1 10`, `groupsOf 3` should return `Just [[1,2,3],[4,5,6],[7,8,9],[10]]`.
 
 ```elm
 groupsOf : Int -> List a -> Maybe (List (List a))
@@ -705,11 +719,11 @@ this equals `Just [1,2,3] :: groupsOf 3 [4,5,6,7,8,9,10]`. When the recursion is
 done, we get our list in groups of three. As you can see, our function isn't well
 defined for `n <= 0` (how would you form groups of -2?). This is reflected in the
 type signature. If we receive a grouping value that doesn't make sense,
-we'll return `Nothing.
+we'll return `Nothing`.
 
 And here's our `logPath` function,
 which takes a `String`, makes a `RoadSystem` out of it and
-returns a `String` message with the shortest path (... maybe):
+returns a `String` message with the shortest path:
 
 ```elm
 import List exposing (..)
@@ -758,9 +772,8 @@ logPath pathInput =
 ```
 
 First, we we call `lines` with our input string to convert something
-like `"50\n10\n30\n..."` to
-`["50","10","30"...` and then we group the results by 3. Then we convert
-the list of strings to a list of numbers.
+like `"50\n10\n30\n..."` to `["50","10","30"...` and then we group the
+results by 3. Then we convert the list of strings to a list of numbers.
 Then we convert the list of lists to a list of sections.
 So `roadSystem` is now our system of
 roads and it even has the correct type, namely `Maybe RoadSystem` (or
