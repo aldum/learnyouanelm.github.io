@@ -201,9 +201,9 @@ its type.
 <function> : ( a1, a2 ) -> a1
 ```
 
-We see that `fst` takes a tuple which contains two types and returns an
+We see that `first` takes a tuple which contains two types and returns an
 element which is of the same type as the pair's first component. That's
-why we can use `fst` on a pair that contains any two types. Note that just
-because `a` and `b` are different type variables, they don't have to be
+why we can use `first` on a pair that contains any two types. Note that just
+because `a1` and `a2` are different type variables, they don't have to be
 different types. It just states that the first component's type and the
 return value's type are the same.
