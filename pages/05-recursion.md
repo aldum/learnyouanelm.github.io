@@ -214,7 +214,7 @@ zip list1 list2 =
     case (list1, list2) of
         (_, []) -> []
         ([], _) -> []
-        ((x::xs), (y:ys)) -> (x, y) :: zip xs ys
+        ((x::xs), (y::ys)) -> (x, y) :: zip xs ys
 ```
 
 What's going on here? This is a more complicated case expression than
