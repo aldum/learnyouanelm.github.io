@@ -14,6 +14,11 @@ Adapted for Elm by:
 * Joey Eremondi
 * Alex Neslusan
 * Eben Packwood
+* letsbreelhere
+* John Freking
+* Bhanu Prakash
+
+(If your name should be on this list, feel free to send a Pull Request).
 
 Contents
 ----
