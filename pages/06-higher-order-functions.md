@@ -128,7 +128,6 @@ subTen = (-) 10
 
 Calling, say, `subTen 5` is equivalent to doing `10 - 5`, as is
 doing `((-) 10) 5`.
-```
 
 Some higher-orderism is in order
 --------------------------------
