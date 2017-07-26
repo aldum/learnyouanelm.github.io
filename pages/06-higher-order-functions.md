@@ -739,7 +739,7 @@ on to right folds. I'm sure you all know that `List.member` checks whether a
 value is part of a list so I won't go into that again (whoops, just
 did!). Let's implement it with a left fold.
 
-``elem
+```elm
 member : a -> List a -> Bool
 member y ys = List.foldl (\x acc -> if x == y then True else acc) False ys
 ```
@@ -930,8 +930,7 @@ has such a low precedence, we can rewrite that expression as
 saving ourselves precious keystrokes! When a `<|` is
 encountered, the expression on its right is applied as the parameter to
 the function on its left. How about `sqrt 3 + 4 + 9`? This adds together
-9, 4 and the square root of 3. If we want get the square root of *3 + 4
-+ 9*, we'd have to write `sqrt (3 + 4 + 9)` or if we use `<|` we can write
+9, 4 and the square root of 3. If we want get the square root of `3 + 4 + 9`, we'd have to write `sqrt (3 + 4 + 9)` or if we use `<|` we can write
 it as `sqrt <| 3 + 4 + 9` because `<|` has the lowest precedence of any
 operator. That's why you can imagine a `<|` being sort of the equivalent
 of writing an opening parentheses and then writing a closing one on the
