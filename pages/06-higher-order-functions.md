@@ -739,7 +739,7 @@ on to right folds. I'm sure you all know that `List.member` checks whether a
 value is part of a list so I won't go into that again (whoops, just
 did!). Let's implement it with a left fold.
 
-``elem
+```elm
 member : a -> List a -> Bool
 member y ys = List.foldl (\x acc -> if x == y then True else acc) False ys
 ```
