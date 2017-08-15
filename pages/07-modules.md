@@ -60,7 +60,7 @@ necessarily need to do the following in real life.
 import List exposing (length, partition)
 import Tuple
 
-numOdds : List number -> Int
+numOdds : List Int -> Int
 numOdds = 
     let
         odd n = n % 2 == 1
