@@ -186,7 +186,7 @@ toPrint = (identity 9) + (max 5 4) + 1
 
 If a function takes two parameters, we can also call it as an infix
 function by surrounding it with backticks. For instance, the `rem`
-function takes two integers and does gives the remainder when you
+function takes two integers and gives the remainder when you
 divide the first by the second.
 Doing `rem 92 10` results in a 2. But when we call it like that, there may
 be some confusion as to which number is doing the division and which one
