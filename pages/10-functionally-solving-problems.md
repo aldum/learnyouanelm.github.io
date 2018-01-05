@@ -122,8 +122,8 @@ solveRPN expression =
 ```
 
 We take the expression and turn it into a list of items. Then we fold
-over that list of items with the folding function. Mind the [], which
-represents the starting accumulator. The accumulator is our stack, so []
+over that list of items with the folding function. Mind the `[]`, which
+represents the starting accumulator. The accumulator is our stack, so `[]`
 represents an empty stack, which is what we start with. After getting
 the final stack with a single item, we then call head on that list to get the
 item out... maybe.
