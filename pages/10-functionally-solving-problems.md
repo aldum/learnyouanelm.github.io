@@ -229,10 +229,10 @@ which is what will ultimately bubble up as the value returned from `solveRPN`.
 And that's it! 
 
 For the list of items `["2","3","+"]`, our function will start folding
-from the left. The intial stack will be []. It will call the folding
-function with [] as the stack (accumulator) and `"2"` as the item. Because
+from the left. The intial stack will be `[]`. It will call the folding
+function with `[]` as the stack (accumulator) and `"2"` as the item. Because
 that item is not an operator, it will be read and then added to the
-beginning of []. So the new stack is now `[Just 2]` and the folding function
+beginning of `[]`. So the new stack is now `[Just 2]` and the folding function
 will be called with `[Just 2]` as the stack and `"3"` as the item, producing a
 new stack of `[Just 3, Just 2]`. Then, it's called for the third time with
 `[Just 3,Just 2]` as the stack and `"+"` as the item.
