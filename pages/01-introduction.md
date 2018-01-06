@@ -32,7 +32,8 @@ person such as yourself will be able to follow along and learn Elm.
 The [elm-discuss mailing list](https://groups.google.com/forum/#!forum/elm-discuss) 
 is a great place to ask
 questions if you're feeling stuck. People there are extremely nice,
-patient and understanding to newbies.
+patient and understanding to newbies. You can find other ways to connect at the
+[Elm Community](http://elm-lang.org/community) page.
 
 So what's Elm?
 ------------------
