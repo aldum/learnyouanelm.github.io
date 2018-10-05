@@ -45,7 +45,7 @@ declare what something is.
 Maximum awesome
 ---------------
 
-The maximum function takes a list of things that can be compared 
+The maximum function takes a list of things that can be compared
 (e.g. comparables) and returns the biggest of them. Think
 about how you'd implement that in an imperative fashion. You'd probably
 set up a variable to hold the maximum value so far and then you'd loop
@@ -65,10 +65,10 @@ tail. That's it! Now let's implement that in Elm.
 maximum : List comparable -> comparable
 maximum list =
     case list of
-        [] -> Debug.crash "maximum of empty list"
+        [] -> Debug.todo "maximum of empty list"
         [x] -> x
         (x::xs) ->
-            let 
+            let
                 maxTail = maximum xs
             in
                 if x > maxTail then
@@ -82,11 +82,11 @@ imperative languages don't have pattern matching so you have to make a
 lot of if else statements to test for edge conditions. Here, we simply
 put them out as patterns. So the first edge condition says that if the
 list is empty, crash! Makes sense because what's the maximum of an empty
-list? I don't know. Note that you shouldn't normally use the Debug.crash
+list? I don't know. Note that you shouldn't normally use the Debug.todo
 function in your code. A better way would be to use the Maybe type, which
 we will see more info on later. Elm's built in List.maximum function uses
-the Maybe type here instead of crashing. The second pattern also lays out 
-an edge condition. It says that if it's the singleton list, just give 
+the Maybe type here instead of crashing. The second pattern also lays out
+an edge condition. It says that if it's the singleton list, just give
 back the only element.
 
 Now the third pattern is where the action happens. We use pattern
@@ -109,7 +109,7 @@ So now we know that the maximum of [5,1] is 5. We go up one step again
 where we had 2 and [5,1]. Comparing 2 with the maximum of [5,1], which
 is 5, we choose 5.
 
-An even clearer way to write this function is to use max. max is a 
+An even clearer way to write this function is to use max. max is a
 function that takes two comparables and returns the
 bigger of them. Here's how we could rewrite maximum by using max:
 
@@ -117,7 +117,7 @@ bigger of them. Here's how we could rewrite maximum by using max:
 maximum : List comparable -> comparable
 maximum list =
     case list of
-        [] -> Debug.crash "maximum of empty list"
+        [] -> Debug.todo "maximum of empty list"
         [x] -> x
         (x::xs) -> max x (maximum xs)
 ```
@@ -144,7 +144,7 @@ repeat : Int -> a -> List a
 repeat n x =
     if n <= 0 then
         []
-    else 
+    else
         x :: repeat (n-1) x
 ```
 
@@ -175,12 +175,12 @@ take n list =
 ![painter](img/painter.png)
 
 The if expression specifies that if we try to take a 0 or negative
-number of elements, we get an empty list. The first case pattern 
-indicates that if we try to take anything from an empty list, we get an 
-empty list. The second case pattern breaks the list into a head and a tail. 
-And then we state that taking n elements from a list equals a list that 
-has x as the head and then a list that takes n-1 elements from the tail 
-as a tail. Try using a piece of paper to write down how the evaluation 
+number of elements, we get an empty list. The first case pattern
+indicates that if we try to take anything from an empty list, we get an
+empty list. The second case pattern breaks the list into a head and a tail.
+And then we state that taking n elements from a list equals a list that
+has x as the head and then a list that takes n-1 elements from the tail
+as a tail. Try using a piece of paper to write down how the evaluation
 would look like if we try to take, say, 3 from [4,3,2,1].
 
 List.reverse simply reverses a list. Think about the edge condition. What is
@@ -222,7 +222,7 @@ we've used up to this point. Remember how we said that in between the
 case and of keywords is an expression? Well, we can use that to our
 advantage here by packing both lists into a tuple and then pattern
 matching on that tuple. In fact, we can write any expression here and
-the value of that expression is what is pattern matched on below. 
+the value of that expression is what is pattern matched on below.
 We can also deconstruct and bind more than one layer into the matched
 data structure, as we see in the third pattern. In this pattern we're
 pulling both lists out of the tuple, and at the same time pulling values
@@ -245,7 +245,7 @@ items. While it takes upwards of 10 lines to implement quicksort in
 imperative languages, the implementation is much shorter and elegant in
 Elm. Quicksort has become a sort of poster child for functional languages.
 Therefore, let's implement it here, even though implementing quicksort
-in functional languages is considered really cheesy because everyone does 
+in functional languages is considered really cheesy because everyone does
 it to showcase how elegant they are.
 
 ![quickman](img/quickman.png)
@@ -262,21 +262,21 @@ make the recursive call twice! Also notice that we defined it using the
 verb *is* to define the algorithm instead of saying *do this, do that,
 then do that ...*. That's the beauty of functional programming! How are
 we going to filter the list so that we get only the elements smaller
-than the head of our list and only elements that are bigger? 
+than the head of our list and only elements that are bigger?
 Well, there's a function called List.filter. Its type is
 List.filter : (a -> Bool) -> List a -> List a.
 So, let's dive in and define this function.
 
 ```elm
 quicksort : List comparable -> List comparable
-quicksort list = 
+quicksort list =
     case list of
         [] -> []
         (x::xs) ->
-            let 
+            let
                 smallerSorted = quicksort (List.filter ((>) x) xs)
                 biggerSorted = quicksort (List.filter ((<=) x) xs)
-            in  
+            in
                 smallerSorted ++ [x] ++ biggerSorted
 ```
 
